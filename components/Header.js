@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Header({ scrollHandler }) {
   return (
@@ -32,6 +33,11 @@ export default function Header({ scrollHandler }) {
               >
                 Explorar la biblioteca
               </button>
+              <Link href="/login">
+                <p className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-green-600 shadow-sm hover:bg-green-100 sm:px-8 ml-4">
+                  Iniciar sesión
+                </p>
+              </Link>
             </div>
           </div>
         </div>

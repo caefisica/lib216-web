@@ -1,5 +1,5 @@
 {
-  "name": "swell-nextjs-app",
+  "name": "cae-216",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -7,8 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.26.0",
-    "swell-js": "^3.13.1"
+    "@supabase/supabase-js": "^2.26.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
