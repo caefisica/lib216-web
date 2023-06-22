@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 export default function Book({ book }) {
   const router = useRouter()
 
-  // Add any additional functionality as required
   return (
     <div className="flex h-screen flex-col justify-between">
       <div className="mx-auto mt-16 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">

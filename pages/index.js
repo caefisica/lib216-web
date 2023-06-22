@@ -1,5 +1,5 @@
 import { supabase } from '../supabase'
-import { useEffect, useState, useRef } from 'react'  // Added useRef
+import { useEffect, useState, useRef } from 'react'
 import ProductCard from '../components/BookCard'
 import Header from '../components/Header'
 
@@ -32,7 +32,6 @@ export default function Gallery() {
     else setCategories(categories)
   }
 
-  // Added scrollHandler function
   const scrollHandler = () => {
     libraryRef.current.scrollIntoView({ behavior: 'smooth' });
   }
