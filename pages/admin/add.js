@@ -1,8 +1,11 @@
 import { supabase } from '../../supabase'
 import { useState } from 'react'
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+
+// For toast notifications
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddBook() {
   const [slug, setSlug] = useState('')
@@ -29,10 +32,11 @@ export default function AddBook() {
 
   return (
     <div className="flex flex-col justify-between min-h-screen py-12 bg-gray-100">
+      <ToastContainer />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-xl font-bold mb-6">Agregar libro</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <input className="border p-2 rounded" value={slug} onChange={e => setSlug(e.target.value)} placeholder="Slug del libro" />
+          <input className="border p-2 rounded" value={slug} readOnly placeholder="Slug del libro" />
           <input className="border p-2 rounded" value={title} onChange={e => setTitle(e.target.value)} placeholder="Título del nuevo libro" />
           <input className="border p-2 rounded" value={author} onChange={e => setAuthor(e.target.value)} placeholder="Autor" />
           <input className="border p-2 rounded" value={category} onChange={e => setCategory(e.target.value)} placeholder="Categoría" />

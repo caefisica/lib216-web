@@ -47,8 +47,6 @@ export default function Dashboard() {
     }
 
     const authListener = supabase.auth.onAuthStateChange((event, session) => handleAuthChange(event, session))
-
-    // No cleanup function
   }, [])
 
   const fetchBooks = async () => {
@@ -58,33 +56,38 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen p-8">
-      {
-        user ? (
-          <div className="bg-white rounded shadow p-6 m-4">
-            <h1 className="text-2xl mb-6">Bienvenido, {user.email}</h1>
-            <Link href="/admin/add">
-              <p className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Añadir libro</p>
-            </Link>
-            <div className="mt-8">
-              {books.map((book, index) => (
-                <div key={index} className="border-b py-4">
-                  <p className="font-bold">{book.title}</p>
-                  <Link href={`/admin/edit?slug=${book.slug}`}>
-                    <p className="text-blue-500 hover:text-blue-700">Editar libro</p>
-                  </Link>
-                </div>
-              ))}
+    <div className="flex flex-col justify-between min-h-screen py-12 bg-gray-100">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        {
+          user ? (
+            <div>
+              <h1 className="text-xl font-bold mb-6">Bienvenido, {user.email}</h1>
+              <Link href="/admin/add">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Añadir libro</button>
+              </Link>
+              <div className="mt-8">
+                {books.map((book, index) => (
+                  <div key={index} className="border-b py-4">
+                    <p className="font-bold">{book.title}</p>
+                    <Link href={`/admin/edit?slug=${book.slug}`}>
+                      <p className="text-blue-500 hover:text-blue-700">Editar libro</p>
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="bg-white rounded shadow p-6 m-4">
-            <h1 className="text-2xl mb-6">You are not authenticated!</h1>
-            <p className="mb-6">Please log in to access the dashboard.</p>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/login')}>Log In</button>
-          </div>
-        )
-      }
+          ) : (
+            <div>
+              <h1 className="text-xl font-bold mb-6">You are not authenticated!</h1>
+              <p className="mb-6">Please log in to access the dashboard.</p>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/login')}>Log In</button>
+            </div>
+          )
+        }
+      </div>
+      <footer className="text-center py-6">
+        <p>© 2023 CAE-Física. Todos los derechos reservados.</p>
+      </footer>
     </div>
   )
 }

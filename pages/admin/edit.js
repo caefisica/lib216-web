@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../supabase'
 import { useRouter } from 'next/router'
-import { toast } from 'react-toastify';
 import Link from 'next/link'
+
+// For toast notifications
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditBook() {
   const [slug, setSlug] = useState('')
@@ -66,7 +69,9 @@ export default function EditBook() {
       toast.error('Hubo un error al actualizar el libro.');
     } else if (data) {
       toast.success('¡Se actualizó el libro!');
-      router.push('/dashboard');
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 2000);
     } else {
       toast.info('Ningún cambio detectado.');
     }
@@ -74,6 +79,7 @@ export default function EditBook() {
 
   return (
     <div className="flex flex-col justify-between min-h-screen py-12 bg-gray-100">
+      <ToastContainer />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-xl font-bold mb-6">Editar libro</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
