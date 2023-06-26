@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../supabase'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import ImageUploader from './ImageUploader';
 
 // For toast notifications
 import { ToastContainer, toast } from 'react-toastify';
@@ -92,7 +93,7 @@ export default function EditBook() {
             <input type="checkbox" checked={published} onChange={e => setPublished(e.target.checked)} />
             <label className="ml-2">Publicado</label>
           </div>
-          <input className="border p-2 rounded" value={image_url} onChange={e => setImageUrl(e.target.value)} placeholder="URL de la portada" />
+          {initialBook && <ImageUploader initialImage={initialBook.image_url} onImageUpload={setImageUrl} />}
         </div>
         <div className="flex items-center justify-between">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={editBook}>Guardar</button>
@@ -101,9 +102,6 @@ export default function EditBook() {
           </Link>
         </div>
       </div>
-      <footer className="text-center py-6">
-        <p>© 2023 CAE-Física. Todos los derechos reservados.</p>
-      </footer>
     </div>
   )
 }

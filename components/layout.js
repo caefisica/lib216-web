@@ -1,17 +1,10 @@
 export default function Layout({ children }) {
   return (
-    <>
-      <main>{children}</main>
-      <footer className="center mt-5 flex justify-center space-x-4 bg-[#E7E8EF] p-4 text-xs">
-        <p>Centro de Apoyo al Estudiante de Física</p>
-        <span>|</span>
-        <a
-          href="https://goo.gl/maps/DoYp5LX9gtYNPBc27"
-          className="font-medium text-orange-600"
-        >
-          Visítanos
-        </a>
+    <div className="flex flex-col min-h-screen">
+      <main className="flex flex-grow items-center justify-center">{children}</main>
+      <footer className="text-center py-6 bg-gray-800 text-white">
+        <p>© 2023 CAE-Física. Todos los derechos reservados.</p>
       </footer>
-    </>
+    </div>
   )
 }
