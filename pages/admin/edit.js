@@ -79,29 +79,63 @@ export default function EditBook() {
   }
 
   return (
-    <div className="flex flex-col justify-between min-h-screen py-12 bg-gray-100">
+    <div className="flex flex-col h-full py-12">
       <ToastContainer />
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-xl font-bold mb-6">Editar libro</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <input className="border p-2 rounded" value={slug} readOnly placeholder="Slug del libro" />
-          <input className="border p-2 rounded" value={title} onChange={e => setTitle(e.target.value)} placeholder="Título del nuevo libro" />
-          <input className="border p-2 rounded" value={author} onChange={e => setAuthor(e.target.value)} placeholder="Autor" />
-          <input className="border p-2 rounded" value={category} onChange={e => setCategory(e.target.value)} placeholder="Categoría" />
-          <textarea className="border p-2 rounded" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descripción" />
+      <div className="max-w-2xl m-auto p-4 sm:p-6 lg:p-8 flex-grow flex flex-col">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-6">Editar libro</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 flex-grow">
+          <input
+            className="border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={slug}
+            readOnly
+            placeholder="Slug del libro"
+          />
+          <input
+            className="border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Título del nuevo libro"
+          />
+          <input
+            className="border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={author}
+            onChange={e => setAuthor(e.target.value)}
+            placeholder="Autor"
+          />
+          <input
+            className="border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            placeholder="Categoría"
+          />
+          <textarea
+            className="border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="Descripción"
+          />
           <div className="flex items-center">
-            <input type="checkbox" checked={published} onChange={e => setPublished(e.target.checked)} />
-            <label className="ml-2">Publicado</label>
+            <input
+              type="checkbox"
+              checked={published}
+              onChange={e => setPublished(e.target.checked)}
+            />
+            <label className="ml-2 text-gray-700">Publicado</label>
           </div>
           {initialBook && <ImageUploader initialImage={initialBook.image_url} onImageUpload={setImageUrl} />}
         </div>
-        <div className="flex items-center justify-between">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={editBook}>Guardar</button>
+        <div className="flex items-center justify-between mt-auto">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={editBook}
+          >
+            Guardar
+          </button>
           <Link href="/dashboard">
-            <p className="text-blue-500 hover:text-blue-700">Regresar al Editor</p>
+            <p className="text-blue-500 hover:text-blue-700 underline">Regresar al Editor</p>
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
