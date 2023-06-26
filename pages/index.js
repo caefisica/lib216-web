@@ -5,13 +5,10 @@ import Header from '../components/Header'
 
 export default function Gallery() {
   const [books, setBooks] = useState([])
-  const [categories, setCategories] = useState([])
-
   const libraryRef = useRef(null)
 
   useEffect(() => {
     fetchBooks()
-    fetchCategories()
   }, [])
 
   const fetchBooks = async () => {
@@ -23,22 +20,13 @@ export default function Gallery() {
     else setBooks(books)
   }
 
-  const fetchCategories = async () => {
-    let { data: categories, error } = await supabase
-      .from('categories')
-      .select('*')
-
-    if (error) console.log('Error: ', error)
-    else setCategories(categories)
-  }
-
   const scrollHandler = () => {
     libraryRef.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
     <>
-      <Header categories={categories} scrollHandler={scrollHandler} />
+      <Header scrollHandler={scrollHandler} />
       <div ref={libraryRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="sm:py-15 mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
