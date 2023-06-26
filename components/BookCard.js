@@ -16,8 +16,6 @@ export default function BookCard({ book }) {
           <Image
             alt={book.title}
             src={`/images${book.image_url}`}
-            layout="fill"
-            objectFit="cover"
             className={cn(
               'duration-700 ease-in-out group-hover:opacity-75',
               isLoading
@@ -25,6 +23,10 @@ export default function BookCard({ book }) {
                 : 'scale-100 blur-0 grayscale-0'
             )}
             onLoadingComplete={() => setLoading(false)}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
+            width={500}  // Provide appropriate width
+            height={300}  // Provide appropriate height
           />
         </div>
         <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
