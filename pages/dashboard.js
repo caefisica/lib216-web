@@ -85,9 +85,6 @@ export default function Dashboard() {
           )
         }
       </div>
-      <footer className="text-center py-6">
-        <p>© 2023 CAE-Física. Todos los derechos reservados.</p>
-      </footer>
     </div>
   )
 }
