@@ -8,20 +8,48 @@ export default function Dashboard() {
   const [user, setUser] = useState(null)
   const [books, setBooks] = useState([])
 
-  useEffect(() => {
-    fetchSession()
-    fetchBooks()
-  }, [])
+  const fetchSession = async () => {
+    let session = JSON.parse(localStorage.getItem('session'))
 
-  const fetchSession = () => {
-    const user = supabase.auth.getUser()
+    if (!session || session.expiry_time < Date.now()) {
+      session = await supabase.auth.getSession()
+      localStorage.setItem('session', JSON.stringify(session))
+    }
 
-    if (user) {
-      setUser(user)
+    console.log('session was fetched')
+
+    if (session) {
+      setUser(session.user)
+      fetchBooks()
     } else {
       router.push('/login')
     }
   }
+
+  useEffect(() => {
+    fetchSession()
+
+    const handleAuthChange = async (event, session) => {
+      console.log(`Supabase auth event: ${event}`)
+
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        setUser(session.user)
+        fetchBooks()
+        localStorage.setItem('session', JSON.stringify(session))
+      }
+
+      if (event === 'SIGNED_OUT') {
+        setUser(null)
+        setBooks([])
+        localStorage.removeItem('session')
+        router.push('/login')
+      }
+    }
+
+    const authListener = supabase.auth.onAuthStateChange((event, session) => handleAuthChange(event, session))
+
+    // No cleanup function
+  }, [])
 
   const fetchBooks = async () => {
     let { data: books, error } = await supabase.from('thelibrary').select('*')

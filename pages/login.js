@@ -1,18 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
-import Link from 'next/link'  // import Link component
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Login() {
   const [email, setEmail] = useState('')
-  const [message, setMessage] = useState(null)  // create state for the status message
-  const [errorMessage, setErrorMessage] = useState(null)  // create state for the error message
+  const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (supabase.auth.getSession()) {
+      setMessage('You are already logged in. You will be redirected to dashboard in 5 seconds.')
+      setTimeout(() => router.push('/dashboard'), 5000)
+    }
+  }, [])
 
   const handleLogin = async (e) => {
     e.preventDefault()
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: `${window.location.origin}/dashboard`,
       },
     })
 

@@ -15,7 +15,6 @@ export default function Book({ book }) {
             <Image 
               src={`/images${book.image_url}`}
               alt={book.title}
-              layout="responsive"
               width={500}
               height={750}
             />
