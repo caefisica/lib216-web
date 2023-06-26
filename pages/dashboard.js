@@ -56,21 +56,26 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col justify-between min-h-screen py-12 bg-gray-100">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col h-full py-12">
+      <div className="max-w-2xl m-auto p-4 sm:p-6 lg:p-8 flex-grow flex flex-col">
         {
           user ? (
             <div>
-              <h1 className="text-xl font-bold mb-6">Bienvenido, {user.email}</h1>
-              <Link href="/admin/add">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Añadir libro</button>
-              </Link>
-              <div className="mt-8">
+              <h1 className="text-2xl font-semibold text-gray-800 mb-6">Bienvenido, {user.email}</h1>
+              <div className="flex items-center justify-between mb-6">
+                <Link href="/admin/add">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Añadir libro</button>
+                </Link>
+                <Link href="/">
+                  <p className="text-blue-500 hover:text-blue-700 underline">Regresar al inicio</p>
+                </Link>
+              </div>
+              <div className="mt-8 flex-grow">
                 {books.map((book, index) => (
                   <div key={index} className="border-b py-4">
                     <p className="font-bold">{book.title}</p>
                     <Link href={`/admin/edit?slug=${book.slug}`}>
-                      <p className="text-blue-500 hover:text-blue-700">Editar libro</p>
+                      <p className="text-blue-500 hover:text-blue-700 underline">Editar libro</p>
                     </Link>
                   </div>
                 ))}
@@ -78,7 +83,7 @@ export default function Dashboard() {
             </div>
           ) : (
             <div>
-              <h1 className="text-xl font-bold mb-6">You are not authenticated!</h1>
+              <h1 className="text-2xl font-semibold text-gray-800 mb-6">You are not authenticated!</h1>
               <p className="mb-6">Please log in to access the dashboard.</p>
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/login')}>Log In</button>
             </div>
@@ -86,5 +91,5 @@ export default function Dashboard() {
         }
       </div>
     </div>
-  )
+  );
 }

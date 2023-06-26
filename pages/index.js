@@ -25,24 +25,18 @@ export default function Gallery() {
   }
 
   return (
-    <>
+    <div className="flex flex-col h-full py-12">
       <Header scrollHandler={scrollHandler} />
-      <div ref={libraryRef} className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="sm:py-15 mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p
-              className="mt-1 text-4xl font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl"
-            >
-              Libros
-            </p>
-          </div>
+      <div ref={libraryRef} className="max-w-2xl m-auto p-4 sm:p-6 lg:p-8 flex-grow flex flex-col">
+        <div className="text-center flex-grow">
+          <h1 className="text-2xl font-semibold text-gray-800 mb-6">Libros</h1>
         </div>
-        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {books.map((book) => (
-          <ProductCard book={book} key={book.id} />
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 flex-grow">
+          {books.map((book) => (
+            <ProductCard book={book} key={book.id} />
+          ))}
         </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
