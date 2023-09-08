@@ -1,59 +1,59 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { supabase } from '../supabase'
+import Link from 'next/link';
+import {useEffect, useState, useCallback} from 'react';
+import {useRouter} from 'next/router';
+import {supabase} from '../supabase';
 
 export default function Dashboard() {
-  const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [books, setBooks] = useState([])
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [books, setBooks] = useState([]);
 
-  const fetchSession = async () => {
-    let session = JSON.parse(localStorage.getItem('session'))
+  const fetchSession = useCallback(async () => {
+    let session = JSON.parse(localStorage.getItem('session'));
 
     if (!session || session.expiry_time < Date.now()) {
-      session = await supabase.auth.getSession()
-      localStorage.setItem('session', JSON.stringify(session))
+      session = await supabase.auth.getSession();
+      localStorage.setItem('session', JSON.stringify(session));
     }
 
-    console.log('session was fetched')
+    console.log('session was fetched');
 
     if (session) {
-      setUser(session.user)
-      fetchBooks()
+      setUser(session.user);
+      fetchBooks();
     } else {
-      router.push('/login')
+      router.push('/login');
     }
-  }
+  }, [router]);
 
   useEffect(() => {
-    fetchSession()
+    fetchSession();
 
     const handleAuthChange = async (event, session) => {
-      console.log(`Supabase auth event: ${event}`)
+      console.log(`Supabase auth event: ${event}`);
 
       if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
-        setUser(session.user)
-        fetchBooks()
-        localStorage.setItem('session', JSON.stringify(session))
+        setUser(session.user);
+        fetchBooks();
+        localStorage.setItem('session', JSON.stringify(session));
       }
 
       if (event === 'SIGNED_OUT') {
-        setUser(null)
-        setBooks([])
-        localStorage.removeItem('session')
-        router.push('/login')
+        setUser(null);
+        setBooks([]);
+        localStorage.removeItem('session');
+        router.push('/login');
       }
-    }
-
-    const authListener = supabase.auth.onAuthStateChange((event, session) => handleAuthChange(event, session))
-  }, [])
+    };
+    /* eslint-disable-next-line no-unused-vars */
+    const authListener = supabase.auth.onAuthStateChange((event, session) => handleAuthChange(event, session));
+  }, [fetchSession, router]);
 
   const fetchBooks = async () => {
-    let { data: books, error } = await supabase.from('thelibrary').select('*')
-    if (error) console.log('Error: ', error)
-    else setBooks(books)
-  }
+    const {data: books, error} = await supabase.from('thelibrary').select('*');
+    if (error) console.log('Error: ', error);
+    else setBooks(books);
+  };
 
   return (
     <div className="flex flex-col h-full py-12">

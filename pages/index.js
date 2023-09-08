@@ -1,28 +1,28 @@
-import { supabase } from '../supabase'
-import { useEffect, useState, useRef } from 'react'
-import ProductCard from '../components/BookCard'
-import Header from '../components/Header'
+import {supabase} from '../supabase';
+import {useEffect, useState, useRef} from 'react';
+import ProductCard from '../components/BookCard';
+import Header from '../components/Header';
 
 export default function Gallery() {
-  const [books, setBooks] = useState([])
-  const libraryRef = useRef(null)
+  const [books, setBooks] = useState([]);
+  const libraryRef = useRef(null);
 
   useEffect(() => {
-    fetchBooks()
-  }, [])
+    fetchBooks();
+  }, []);
 
   const fetchBooks = async () => {
-    let { data: books, error } = await supabase
-      .from('thelibrary')
-      .select('*')
+    const {data: books, error} = await supabase
+        .from('thelibrary')
+        .select('*');
 
-    if (error) console.log('Error: ', error)
-    else setBooks(books)
-  }
+    if (error) console.log('Error: ', error);
+    else setBooks(books);
+  };
 
   const scrollHandler = () => {
-    libraryRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
+    libraryRef.current.scrollIntoView({behavior: 'smooth'});
+  };
 
   return (
     <div className="flex flex-col h-full py-12">

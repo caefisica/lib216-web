@@ -1,10 +1,10 @@
-import '../styles/globals.css'
-import Layout from '../components/layout'
-import Head from 'next/head'
-import { useEffect } from 'react'
-import { supabase } from '../supabase'
+import '../styles/globals.css';
+import Layout from '../components/layout';
+import Head from 'next/head';
+import {useEffect} from 'react';
+import {supabase} from '../supabase';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps}) {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
@@ -12,8 +12,8 @@ function MyApp({ Component, pageProps }) {
       } else if (event === 'SIGNED_OUT') {
         console.log('User signed out');
       }
-    })
-  }, [])  
+    });
+  }, []);
 
   return (
     <>
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

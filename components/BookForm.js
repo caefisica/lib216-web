@@ -1,24 +1,29 @@
-import { useState } from 'react'
-import { supabase } from '../supabase'
+import {useState} from 'react';
+import {supabase} from '../supabase';
 
-export default function BookForm({ onNewBook }) {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
+export default function BookForm({onNewBook}) {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    const { data, error } = await supabase
-      .from('thelibrary')
-      .insert([
-        { title: title, author: author },
-      ])
+    event.preventDefault();
+    const {data, error} = await supabase
+        .from('thelibrary')
+        .insert([
+          {title: title, author: author},
+        ]);
+
+    if (error) {
+      console.error('Error adding book:', error);
+      return;
+    }
 
     if (data) {
-      setTitle('')
-      setAuthor('')
-      onNewBook()
+      setTitle('');
+      setAuthor('');
+      onNewBook();
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -26,5 +31,5 @@ export default function BookForm({ onNewBook }) {
       <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author" required />
       <button type="submit">Add Book</button>
     </form>
-  )
+  );
 }

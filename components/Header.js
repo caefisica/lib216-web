@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-export default function Header({ scrollHandler }) {
+export default function Header({scrollHandler}) {
   return (
     <header className="relative bg-blue-500">
       <div className="mx-auto p-4 sm:p-6 lg:p-8 flex-grow flex flex-col">
@@ -22,5 +22,5 @@ export default function Header({ scrollHandler }) {
         </div>
       </div>
     </header>
-  )
+  );
 }

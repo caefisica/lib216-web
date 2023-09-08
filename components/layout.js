@@ -1,4 +1,4 @@
-export default function Layout({ children }) {
+export default function Layout({children}) {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex flex-grow items-center justify-center">{children}</main>
@@ -6,5 +6,5 @@ export default function Layout({ children }) {
         <p>© 2023 CAE-Física. Todos los derechos reservados.</p>
       </footer>
     </div>
-  )
+  );
 }

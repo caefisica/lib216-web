@@ -1,18 +1,15 @@
-import { supabase } from '../../supabase'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import {supabase} from '../../supabase';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Book({ book }) {
-  const router = useRouter()
-
+export default function Book({book}) {
   return (
     <div className="flex h-screen flex-col justify-between">
       <div className="mx-auto mt-16 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="mx-auto flex flex-col sm:flex-row">
           {/* Add book image here if available */}
           <div className="w-full sm:w-1/2">
-            <Image 
+            <Image
               src={`/images${book.image_url}`}
               alt={book.title}
               width={500}
@@ -36,39 +33,39 @@ export default function Book({ book }) {
           </div>
         </div>
         <div className="mt-8">
-        <Link href="/" passHref>
-          <p className="text-blue-500 hover:underline cursor-pointer">← Back to home</p>
-        </Link>
+          <Link href="/" passHref>
+            <p className="text-blue-500 hover:underline cursor-pointer">← Regresar al inicio</p>
+          </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export async function getStaticProps({ params }) {
-  const { data: book, error } = await supabase
-    .from('thelibrary')
-    .select('*')
-    .eq('slug', params.slug)
-    .single()
+export async function getStaticProps({params}) {
+  const {data: book, error} = await supabase
+      .from('thelibrary')
+      .select('*')
+      .eq('slug', params.slug)
+      .single();
 
-  if (error) console.error('Error: ', error)
+  if (error) console.error('Error: ', error);
 
   return {
     props: {
       book,
     },
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  const { data: books, error } = await supabase
-    .from('thelibrary')
-    .select('slug')
+  const {data: books} = await supabase
+      .from('thelibrary')
+      .select('slug');
 
   const paths = books.map((book) => ({
-    params: { slug: book.slug },
-  }))
+    params: {slug: book.slug},
+  }));
 
-  return { paths, fallback: false }
+  return {paths, fallback: false};
 }
