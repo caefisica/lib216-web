@@ -16,7 +16,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "cloudinary": "^1.40.0",
     "cloudinary-react": "^1.8.1",
-    "next": "^13.1.3",
+    "next": "^14.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
