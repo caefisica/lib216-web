@@ -16,7 +16,7 @@ export default function Dashboard() {
       localStorage.setItem('session', JSON.stringify(session));
     }
 
-    console.log('session was fetched');
+    console.log('La sesión fue encontrada: ', session);
 
     if (session) {
       setUser(session.user);
@@ -83,9 +83,9 @@ export default function Dashboard() {
             </div>
           ) : (
             <div>
-              <h1 className="text-2xl font-semibold text-gray-800 mb-6">You are not authenticated!</h1>
-              <p className="mb-6">Please log in to access the dashboard.</p>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/login')}>Log In</button>
+              <h1 className="text-2xl font-semibold text-gray-800 mb-6">Todavía no iniciaste sesión</h1>
+              <p className="mb-6">Por favor, inicia sesión para acceder al panel de control.</p>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/login')}>Iniciar sesión</button>
             </div>
           )
         }
