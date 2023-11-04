@@ -18,7 +18,7 @@ function MyApp({Component, pageProps}) {
   return (
     <>
       <Head>
-        <title>216 - CAE-Física</title>
+        <title>Biblioteca 216 - @caefisica</title>
       </Head>
       <Layout>
         <Component {...pageProps} />
