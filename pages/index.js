@@ -31,10 +31,6 @@ export default function Gallery() {
   const {books, loading, error} = useBooks();
   const libraryRef = useRef(null);
 
-  const scrollHandler = () => {
-    libraryRef.current.scrollIntoView({behavior: 'smooth'});
-  };
-
   return (
     <div className="flex flex-col h-full py-12">
       <div ref={libraryRef} className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex-grow">
