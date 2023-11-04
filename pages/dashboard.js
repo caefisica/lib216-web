@@ -56,9 +56,9 @@ export default function Dashboard() {
   };
 
   return (
-      <div className="flex flex-col h-full py-12">
-        <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-lg">
-          {user ? (
+    <div className="flex flex-col h-full py-12">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-lg">
+        {user ? (
             <>
               <h1 className="text-3xl font-semibold text-gray-800 mb-8">Bienvenido, {user.email}</h1>
               <div className="flex items-center justify-between mb-8">
@@ -93,7 +93,7 @@ export default function Dashboard() {
               </button>
             </div>
           )}
-        </div>
       </div>
+    </div>
   );
 }

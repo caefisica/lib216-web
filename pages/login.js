@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../supabase';
+import {useEffect, useState} from 'react';
+import {supabase} from '../supabase';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,39 +11,38 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
+    const checkSession = async () => {
+      const {data: sessionData, error: sessionError} = await supabase.auth.getSession();
+
+      if (sessionError) {
+        setErrorMessage(sessionError.message);
+        return;
+      }
+
+      if (sessionData.session) {
+        setMessage('Ya has iniciado sesión. Serás redirigido al panel de control en breve.');
+        router.push('/dashboard');
+      } else {
+        // Si no existe ninguna sesión, comprobar si es necesario actualizar la sesión
+        const {data: refreshData, error: refreshError} = await supabase.auth.refreshSession();
+
+        if (refreshError) {
+          // Si no podemos refrescar la sesión, debemos manejar el error silenciosamente ya que el usuario intentará iniciar sesión de todos modos.
+          console.error('Error al refrescar la sesión:', refreshError.message);
+        } else if (refreshData.session) {
+          setMessage('You are already logged in. You will be redirected to dashboard shortly.');
+          router.push('/dashboard');
+        }
+      }
+    };
     checkSession();
   }, [router]);
-
-  const checkSession = async () => {
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-
-    if (sessionError) {
-      setErrorMessage(sessionError.message);
-      return;
-    }
-
-    if (sessionData.session) {
-      setMessage('Ya has iniciado sesión. Serás redirigido al panel de control en breve.');
-      router.push('/dashboard');
-    } else {
-      // Si no existe ninguna sesión, comprobar si es necesario actualizar la sesión
-      const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
-
-      if (refreshError) {
-        // Si no podemos refrescar la sesión, debemos manejar el error silenciosamente ya que el usuario intentará iniciar sesión de todos modos.
-        console.error('Error al refrescar la sesión:', refreshError.message)
-      } else if (refreshData.session) {
-        setMessage('You are already logged in. You will be redirected to dashboard shortly.');
-        router.push('/dashboard');
-      }
-    }
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { error } = await supabase.auth.signInWithOtp({
+    const {error} = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/dashboard`,
@@ -52,9 +51,9 @@ export default function Login() {
 
     if (error) {
       console.error('Error al iniciar sesión:', error.message);
-      setErrorMessage('Error al iniciar sesión. Por favor, inténtelo de nuevo.')
+      setErrorMessage('Error al iniciar sesión. Por favor, inténtelo de nuevo.');
     } else {
-      setMessage('Revisa tu correo electrónico para el correo de confirmación.')
+      setMessage('Revisa tu correo electrónico para el correo de confirmación.');
     }
 
     setIsSubmitting(false);

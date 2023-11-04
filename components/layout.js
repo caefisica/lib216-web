@@ -1,6 +1,6 @@
 import Header from './Header';
 
-export default function Layout({ children, scrollHandler }) {
+export default function Layout({children, scrollHandler}) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header scrollHandler={scrollHandler} />
