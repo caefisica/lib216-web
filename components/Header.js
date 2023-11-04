@@ -6,7 +6,7 @@ export default function Header({scrollHandler}) {
       <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
         <nav className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-white uppercase tracking-wide">
-            <a href="/">Biblioteca del 216</a>
+            <Link href="/">Biblioteca del 216</Link>
           </h1>
           <div className="flex space-x-4">
             <Link href="/login" className="text-white bg-transparent border border-white hover:bg-blue-700 hover:text-white text-sm font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">
