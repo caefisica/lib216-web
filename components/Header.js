@@ -2,24 +2,19 @@ import Link from 'next/link';
 
 export default function Header({scrollHandler}) {
   return (
-    <header className="relative bg-blue-500">
-      <div className="mx-auto p-4 sm:p-6 lg:p-8 flex-grow flex flex-col">
-        <div className="text-center flex-grow">
-          <h1 className="text-2xl font-semibold text-white mb-6 uppercase">Biblioteca del 216</h1>
-
-          <div className="flex items-center justify-between mt-auto">
-            <Link href="/login">
-              <p className="bg-white hover:bg-blue-200 text-blue-500 font-bold py-2 px-4 rounded">
-                Iniciar sesión
-              </p>
+    <header className="relative bg-blue-600 shadow-md">
+      <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <nav className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-white mb-6 uppercase tracking-wide">Biblioteca del 216</h1>
+          <div className="flex space-x-4">
+            <Link href="/login" className="text-white bg-transparent border border-white hover:bg-blue-700 hover:text-white text-sm font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">
+              Iniciar sesión
             </Link>
-            <Link href="/dashboard">
-              <p className="bg-white hover:bg-blue-200 text-blue-500 font-bold py-2 px-4 rounded">
-                Para editores
-              </p>
+            <Link href="/dashboard" className="text-white bg-transparent border border-white hover:bg-blue-700 hover:text-white text-sm font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">
+              Para editores
             </Link>
           </div>
-        </div>
+        </nav>
       </div>
     </header>
   );
