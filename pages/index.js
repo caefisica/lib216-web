@@ -1,7 +1,6 @@
 import {supabase} from '../supabase';
 import {useEffect, useState, useRef} from 'react';
 import BookCard from '../components/BookCard';
-import Header from '../components/Header';
 
 const useBooks = () => {
   const [books, setBooks] = useState([]);
@@ -38,7 +37,6 @@ export default function Gallery() {
 
   return (
     <div className="flex flex-col h-full py-12">
-      <Header scrollHandler={scrollHandler} />
       <div ref={libraryRef} className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex-grow">
         <div className="text-center">
           <h1 className="text-4xl font-semibold text-gray-800 mb-6">Libros</h1>
