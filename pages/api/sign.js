@@ -1,4 +1,5 @@
 const cloudinary = require('cloudinary').v2;
+export const runtime = 'edge';
 
 const handleRequest = async (_req, res) => {
   // TODO: CHECK TO MAKE SURE AUTHENTICATED
