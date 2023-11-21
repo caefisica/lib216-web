@@ -16,7 +16,8 @@ const handleRequest = async (_req, res) => {
 export const config = {
   runtime: 'edge',
   unstable_allowDynamic: [
-    '**/node_modules/lodash/_root.js',
+    '**/node_modules/lodash/**.js',
+    '**/node_modules/core-js/**/**.js',
   ],
 };
 
