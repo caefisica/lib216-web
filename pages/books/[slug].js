@@ -10,7 +10,7 @@ export default function Book({book}) {
           {/* Add book image here if available */}
           <div className="w-full sm:w-1/2">
             <Image
-              src={`/images${book.image_url}`}
+              src={`${book.image_url}`}
               alt={book.title}
               width={500}
               height={750}
@@ -21,13 +21,13 @@ export default function Book({book}) {
               {book.title}
             </h1>
             <h2 className="mt-3 text-lg font-bold text-gray-500 sm:text-xl sm:tracking-tight lg:text-xl">
-              By: {book.author}
+              Por: {book.author}
             </h2>
             <h3 className="mt-1 text-lg text-gray-500 sm:text-xl sm:tracking-tight lg:text-xl">
-              Category: {book.category}
+              Categoría: {book.category}
             </h3>
             <div className="mt-10 mb-5 border-t border-gray-200 pt-10 font-bold">
-              Description
+              Descripción
             </div>
             <p className="max-w-xl">{book.description}</p>
           </div>
