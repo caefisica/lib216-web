@@ -87,7 +87,8 @@ export default function ImageUploader({initialImage, onImageUpload}) {
           <Image
             src={initialImage}
             alt="Current Image"
-            style={{maxWidth: '300px', height: 'auto'}}
+            width={500}
+            height={750}
           />
         </div>
       )}
