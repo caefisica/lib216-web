@@ -13,4 +13,5 @@ const handleRequest = async (_req, res) => {
   }
 };
 
+export const runtime = 'edge';
 export default handleRequest;
