@@ -89,7 +89,7 @@ export default function EditBook() {
         <h2 className="text-3xl font-semibold text-gray-900 mb-8">Editar libro</h2>
         <form className="space-y-6">
           <div className="grid grid-cols-1 gap-6 mb-4">
-          <div className="flex items-center">
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 id="published"
@@ -178,7 +178,7 @@ export default function EditBook() {
             >
               Guardar
             </button>
-            <Link 
+            <Link
               href="/dashboard"
               className="text-lg text-blue-600 hover:text-blue-700 hover:underline"
             >

@@ -1,31 +1,31 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import React, {useState, useCallback, useEffect} from 'react';
+import {useDropzone} from 'react-dropzone';
+import {Cloudinary} from '@cloudinary/url-gen';
+import {AdvancedImage, responsive, placeholder} from '@cloudinary/react';
+import Image from 'next/image';
 
-const cloudName = "dubu";
+const cloudName = 'dubu';
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: cloudName
-  }
+    cloudName: cloudName,
+  },
 });
 
-export default function ImageUploader({ initialImage, onImageUpload }) {
+export default function ImageUploader({initialImage, onImageUpload}) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const getSignature = async () => {
     const response = await fetch('/api/sign');
     const data = await response.json();
-    const { signature, timestamp } = data;
-    return { signature, timestamp };
+    const {signature, timestamp} = data;
+    return {signature, timestamp};
   };
 
   const onDrop = useCallback(async (acceptedFiles) => {
-
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
-    const { signature, timestamp } = await getSignature();
+    const {signature, timestamp} = await getSignature();
 
     acceptedFiles.forEach(async (acceptedFile) => {
       const formData = new FormData();
@@ -52,11 +52,11 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
 
   useEffect(() => {
     if (initialImage) {
-      setUploadedFiles([{ secure_url: initialImage }]);
+      setUploadedFiles([{secure_url: initialImage}]);
     }
   }, [initialImage]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop,
     accepts: 'image/*',
     multiple: false,
@@ -71,7 +71,7 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
           {uploadedFiles.map((file, i) => (
             <li key={i}>
               <AdvancedImage
-                style={{ maxWidth: "100%" }}
+                style={{maxWidth: '100%'}}
                 cldImg={cld.image(file.public_id)}
                 plugins={[responsive(), placeholder()]}
                 alt={`Uploaded Image ${i + 1}`}
@@ -84,10 +84,10 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
       {initialImage && (
         <div className="my-6">
           <p className="text-lg font-medium text-gray-700 mb-2">Portada:</p>
-          <img
+          <Image
             src={initialImage}
             alt="Current Image"
-            style={{ maxWidth: '300px', height: 'auto' }}
+            style={{maxWidth: '300px', height: 'auto'}}
           />
         </div>
       )}
