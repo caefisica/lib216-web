@@ -22,11 +22,11 @@ export default function BookCard({book}) {
                 'scale-110 blur-2xl grayscale' :
                 'scale-100 blur-0 grayscale-0'
             )}
-            onLoadingComplete={() => setLoading(false)}
+            onLoad={() => setLoading(false)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{objectFit: 'cover'}}
-            width={500} // Provide appropriate width
-            height={300} // Provide appropriate height
+            width={500}
+            height={300}
           />
         </div>
         <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">

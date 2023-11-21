@@ -16,7 +16,7 @@ export default function Dashboard() {
       localStorage.setItem('session', JSON.stringify(session));
     }
 
-    console.log('La sesión fue encontrada: ', session);
+    // console.log('La sesión fue encontrada: ', session);
 
     if (session) {
       setUser(session.user);
