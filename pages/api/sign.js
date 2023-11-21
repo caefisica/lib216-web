@@ -13,6 +13,6 @@ const handleRequest = async (_req, res) => {
   }
 };
 
-export const config = { runtime: 'edge' };
+export const config = {runtime: 'edge'};
 
 export default handleRequest;
