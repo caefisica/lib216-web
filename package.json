@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "20.8.10",
-    "@types/react": "17.0.38",
+    "@types/react": "18.2.41",
     "autoprefixer": "^10.4.0",
     "eslint": "8.54.0",
     "eslint-config-google": "^0.14.0",
