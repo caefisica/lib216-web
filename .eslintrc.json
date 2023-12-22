@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "next/core-web-vitals", 
-    "eslint:recommended", 
-    "google"
-  ],
+  "extends": ["next/core-web-vitals", "eslint:recommended", "google"],
   "rules": {
     "max-len": "off",
     "require-jsdoc": "off"
