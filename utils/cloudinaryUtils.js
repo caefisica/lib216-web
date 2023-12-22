@@ -1,15 +1,17 @@
-const generateSignature = (cloudinary, timestamp) => {
-  const signature = cloudinary.utils.api_sign_request(
-    {
-      timestamp: timestamp,
-      folder: 'thelibrary',
-    },
-    cloudinary.config().api_secret
-  );
+const generateSignature = (cloudinary, timestamp, folderName) => {
+  const paramsToSign = {
+    timestamp: timestamp,
+    folder: folderName,
+  }
 
-  return signature;
-};
+  const signature = cloudinary.utils.api_sign_request(
+    paramsToSign,
+    cloudinary.config().api_secret,
+  )
+
+  return signature
+}
 
 module.exports = {
   generateSignature,
-};
+}
