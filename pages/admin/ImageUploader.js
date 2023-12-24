@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {Cloudinary} from '@cloudinary/url-gen';
 import {AdvancedImage, responsive, placeholder} from '@cloudinary/react';
@@ -16,10 +16,11 @@ const cld = new Cloudinary({
 
 export default function ImageUploader({initialImage, onImageUpload}) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getSignature = async (folderName) => {
     try {
-      const response = await fetch('/api/sign', {
+      const response = await fetch('http://localhost:3000/api/sign', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,46 +32,45 @@ export default function ImageUploader({initialImage, onImageUpload}) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return {signature: data.signature, timestamp: data.timestamp};
+      return await response.json();
     } catch (error) {
       console.error('Error fetching signature:', error);
+      setErrorMessage('Error obtaining upload signature.');
       throw error;
     }
   };
 
-  const onDrop = useCallback(
-      async (acceptedFiles) => {
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+  const onDrop = useCallback(async (acceptedFiles) => {
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    try {
+      const {signature, timestamp} = await getSignature(folderName);
 
-        const {signature, timestamp} = await getSignature(folderName);
+      acceptedFiles.forEach(async (acceptedFile) => {
+        const formData = new FormData();
+        formData.append('file', acceptedFile);
+        formData.append('signature', signature);
+        formData.append('timestamp', timestamp);
+        formData.append('api_key', apiKey);
+        formData.append('folder', folderName);
 
-        acceptedFiles.forEach(async (acceptedFile) => {
-          const formData = new FormData();
-          formData.append('file', acceptedFile);
-          formData.append('signature', signature);
-          formData.append('timestamp', timestamp);
-          formData.append('api_key', apiKey);
-          formData.append('folder', folderName);
-
-          const response = await fetch(url, {
-            method: 'post',
-            body: formData,
-          });
-
-          if (!response.ok) {
-            const errorResponse = await response.json();
-            console.error('Fetch error:', response.statusText, errorResponse);
-            return;
-          }
-
-          const data = await response.json();
-          setUploadedFiles((old) => [...old, data]);
-          onImageUpload(data.secure_url);
+        const response = await fetch(url, {
+          method: 'post',
+          body: formData,
         });
-      },
-      [onImageUpload],
-  );
+
+        if (!response.ok) {
+          throw new Error(`Image upload failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setUploadedFiles((old) => [...old, data]);
+        onImageUpload(data.secure_url);
+      });
+    } catch (error) {
+      console.error('Upload error:', error);
+      setErrorMessage('Failed to upload image. Please try again.');
+    }
+  }, [onImageUpload]);
 
   useEffect(() => {
     if (initialImage) {
