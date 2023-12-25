@@ -25,6 +25,7 @@
   "git.autofetch": true,
   "files.autoSave": "afterDelay",
   "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
