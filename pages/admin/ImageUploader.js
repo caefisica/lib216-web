@@ -13,6 +13,7 @@ const cld = new Cloudinary({
 export default function ImageUploader({ initialImage, onImageUpload }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currentImage, setCurrentImage] = useState(initialImage);
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
@@ -43,10 +44,11 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
   );
 
   useEffect(() => {
-    if (initialImage) {
-      setUploadedFiles([{ secure_url: initialImage }]);
+    if (uploadedFiles.length > 0) {
+      const latestImage = uploadedFiles[uploadedFiles.length - 1].secure_url;
+      setCurrentImage(latestImage);
     }
-  }, [initialImage]);
+  }, [uploadedFiles]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -82,11 +84,11 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
         </ul>
       </div>
 
-      {initialImage && (
+      {currentImage && (
         <div className="my-6">
           <p className="text-lg font-medium text-gray-700 mb-2">Portada:</p>
           <Image
-            src={initialImage}
+            src={currentImage}
             alt="Current Image"
             width={500}
             height={750}
