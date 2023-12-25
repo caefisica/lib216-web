@@ -4,14 +4,8 @@
     "commonjs": true,
     "es2021": true
   },
-  "plugins": [
-    "prettier"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "prettier",
-    "next"
-  ],
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "prettier", "next"],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
