@@ -1,8 +1,8 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react';
-import {useDropzone} from 'react-dropzone';
-import {Cloudinary} from '@cloudinary/url-gen';
-import {AdvancedImage, responsive, placeholder} from '@cloudinary/react';
+import { AdvancedImage, placeholder, responsive } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
 import Image from 'next/image';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const cloudName = 'dubu';
 const folderName = 'thelibrary';
@@ -10,23 +10,27 @@ const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: cloudName,
+    cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   },
 });
 
-export default function ImageUploader({initialImage, onImageUpload}) {
+export default function ImageUploader({ initialImage, onImageUpload }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const getSignature = async (folderName) => {
     try {
+      const authToken = process.env.NEXT_PUBLIC_API_AUTH_TOKEN;
       const response = await fetch('http://localhost:3000/api/sign', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-token': authToken
         },
-        body: JSON.stringify({folder: folderName}),
+        body: JSON.stringify({ folder: folderName }),
       });
+
+      console.log('the api auth token is: ', process.env.NEXT_PUBLIC_API_AUTH_TOKEN)
 
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -43,7 +47,7 @@ export default function ImageUploader({initialImage, onImageUpload}) {
   const onDrop = useCallback(async (acceptedFiles) => {
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
     try {
-      const {signature, timestamp} = await getSignature(folderName);
+      const { signature, timestamp } = await getSignature(folderName);
 
       acceptedFiles.forEach(async (acceptedFile) => {
         const formData = new FormData();
@@ -74,11 +78,11 @@ export default function ImageUploader({initialImage, onImageUpload}) {
 
   useEffect(() => {
     if (initialImage) {
-      setUploadedFiles([{secure_url: initialImage}]);
+      setUploadedFiles([{ secure_url: initialImage }]);
     }
   }, [initialImage]);
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: 'image/*',
     multiple: false,
@@ -88,23 +92,23 @@ export default function ImageUploader({initialImage, onImageUpload}) {
     <div>
       <div
         {...getRootProps()}
-        className={`${
-          isDragActive ? 'bg-blue-300' : 'bg-gray-200'
-        } border p-4 rounded cursor-pointer`}
+        className={`${isDragActive ? 'bg-blue-300' : 'bg-gray-200'
+          } border p-4 rounded cursor-pointer`}
       >
         <input {...getInputProps()} />
         <p>
           Arrastra y suelta una imagen aquí, o haz clic para seleccionar una
           imagen
         </p>
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <ul>
-          {uploadedFiles.map((file, i) => (
-            <li key={i}>
+          {uploadedFiles.map((file, index) => (
+            <li key={index}>
               <AdvancedImage
-                style={{maxWidth: '100%'}}
+                style={{ maxWidth: '100%' }}
                 cldImg={cld.image(file.public_id)}
                 plugins={[responsive(), placeholder()]}
-                alt={`Uploaded Image ${i + 1}`}
+                alt={`Uploaded Image ${index + 1}`}
               />
             </li>
           ))}
