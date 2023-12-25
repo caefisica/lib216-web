@@ -58,9 +58,6 @@ devDependencies:
   eslint:
     specifier: 8.54.0
     version: 8.54.0
-  eslint-config-google:
-    specifier: ^0.14.0
-    version: 0.14.0(eslint@8.54.0)
   eslint-config-next:
     specifier: ^14.0.3
     version: 14.0.4(eslint@8.54.0)(typescript@5.3.3)
@@ -1117,15 +1114,6 @@ packages:
   /escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
-    dev: true
-
-  /eslint-config-google@0.14.0(eslint@8.54.0):
-    resolution: {integrity: sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==}
-    engines: {node: '>=0.10.0'}
-    peerDependencies:
-      eslint: '>=5.16.0'
-    dependencies:
-      eslint: 8.54.0
     dev: true
 
   /eslint-config-next@14.0.4(eslint@8.54.0)(typescript@5.3.3):
