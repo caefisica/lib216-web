@@ -1,7 +1,20 @@
 {
-  "extends": ["next/core-web-vitals", "eslint:recommended", "google"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
   "rules": {
-    "max-len": "off",
-    "require-jsdoc": "off"
+    "prettier/prettier": "error"
   }
 }
