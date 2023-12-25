@@ -1,12 +1,8 @@
-import { AdvancedImage, placeholder, responsive } from '@cloudinary/react';
-import { Cloudinary } from '@cloudinary/url-gen';
+import {AdvancedImage, placeholder, responsive} from '@cloudinary/react';
+import {Cloudinary} from '@cloudinary/url-gen';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-
-const cloudName = 'dubu';
-const folderName = 'thelibrary';
-const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDropzone} from 'react-dropzone';
 
 const cld = new Cloudinary({
   cloud: {
@@ -14,51 +10,18 @@ const cld = new Cloudinary({
   },
 });
 
-export default function ImageUploader({ initialImage, onImageUpload }) {
+export default function ImageUploader({initialImage, onImageUpload}) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const getSignature = async (folderName) => {
-    try {
-      const authToken = process.env.NEXT_PUBLIC_API_AUTH_TOKEN;
-      const response = await fetch('http://localhost:3000/api/sign', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-token': authToken
-        },
-        body: JSON.stringify({ folder: folderName }),
-      });
-
-      console.log('the api auth token is: ', process.env.NEXT_PUBLIC_API_AUTH_TOKEN)
-
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching signature:', error);
-      setErrorMessage('Error obtaining upload signature.');
-      throw error;
-    }
-  };
-
   const onDrop = useCallback(async (acceptedFiles) => {
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-    try {
-      const { signature, timestamp } = await getSignature(folderName);
+    acceptedFiles.forEach(async (acceptedFile) => {
+      const formData = new FormData();
+      formData.append('file', acceptedFile);
 
-      acceptedFiles.forEach(async (acceptedFile) => {
-        const formData = new FormData();
-        formData.append('file', acceptedFile);
-        formData.append('signature', signature);
-        formData.append('timestamp', timestamp);
-        formData.append('api_key', apiKey);
-        formData.append('folder', folderName);
-
-        const response = await fetch(url, {
-          method: 'post',
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
           body: formData,
         });
 
@@ -69,20 +32,20 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
         const data = await response.json();
         setUploadedFiles((old) => [...old, data]);
         onImageUpload(data.secure_url);
-      });
-    } catch (error) {
-      console.error('Upload error:', error);
-      setErrorMessage('Failed to upload image. Please try again.');
-    }
+      } catch (error) {
+        console.error('Upload error:', error);
+        setErrorMessage('Failed to upload image. Please try again.');
+      }
+    });
   }, [onImageUpload]);
 
   useEffect(() => {
     if (initialImage) {
-      setUploadedFiles([{ secure_url: initialImage }]);
+      setUploadedFiles([{secure_url: initialImage}]);
     }
   }, [initialImage]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop,
     accepts: 'image/*',
     multiple: false,
@@ -93,7 +56,7 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
       <div
         {...getRootProps()}
         className={`${isDragActive ? 'bg-blue-300' : 'bg-gray-200'
-          } border p-4 rounded cursor-pointer`}
+        } border p-4 rounded cursor-pointer`}
       >
         <input {...getInputProps()} />
         <p>
@@ -105,7 +68,7 @@ export default function ImageUploader({ initialImage, onImageUpload }) {
           {uploadedFiles.map((file, index) => (
             <li key={index}>
               <AdvancedImage
-                style={{ maxWidth: '100%' }}
+                style={{maxWidth: '100%'}}
                 cldImg={cld.image(file.public_id)}
                 plugins={[responsive(), placeholder()]}
                 alt={`Uploaded Image ${index + 1}`}
