@@ -58,12 +58,19 @@ export default function EditBook() {
     if (initialBook.description !== description)
       fields.description = description;
     if (initialBook.published !== published) fields.published = published;
-    if (initialBook.imageUrl !== imageUrl) fields.imageUrl = imageUrl;
+    if (initialBook.image_url !== imageUrl) fields.image_url = imageUrl;
     return fields;
   };
 
   const editBook = async () => {
+    event.preventDefault();
+
     const updatedFields = getUpdatedFields();
+
+    if (Object.keys(updatedFields).length === 0) {
+      toast.info('Ningún cambio detectado.');
+      return;
+    }
 
     const { data, error } = await supabase
       .from('thelibrary')
@@ -78,8 +85,6 @@ export default function EditBook() {
       setTimeout(() => {
         router.push('/dashboard');
       }, 2000);
-    } else {
-      toast.info('Ningún cambio detectado.');
     }
   };
 
