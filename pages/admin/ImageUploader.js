@@ -1,8 +1,8 @@
-import {AdvancedImage, placeholder, responsive} from '@cloudinary/react';
-import {Cloudinary} from '@cloudinary/url-gen';
+import { AdvancedImage, placeholder, responsive } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
 import Image from 'next/image';
-import React, {useCallback, useEffect, useState} from 'react';
-import {useDropzone} from 'react-dropzone';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const cld = new Cloudinary({
   cloud: {
@@ -10,42 +10,45 @@ const cld = new Cloudinary({
   },
 });
 
-export default function ImageUploader({initialImage, onImageUpload}) {
+export default function ImageUploader({ initialImage, onImageUpload }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onDrop = useCallback(async (acceptedFiles) => {
-    acceptedFiles.forEach(async (acceptedFile) => {
-      const formData = new FormData();
-      formData.append('file', acceptedFile);
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      acceptedFiles.forEach(async (acceptedFile) => {
+        const formData = new FormData();
+        formData.append('file', acceptedFile);
 
-      try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+          });
 
-        if (!response.ok) {
-          throw new Error(`Image upload failed: ${response.statusText}`);
+          if (!response.ok) {
+            throw new Error(`Image upload failed: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          setUploadedFiles((old) => [...old, data]);
+          onImageUpload(data.secure_url);
+        } catch (error) {
+          console.error('Upload error:', error);
+          setErrorMessage('Failed to upload image. Please try again.');
         }
-
-        const data = await response.json();
-        setUploadedFiles((old) => [...old, data]);
-        onImageUpload(data.secure_url);
-      } catch (error) {
-        console.error('Upload error:', error);
-        setErrorMessage('Failed to upload image. Please try again.');
-      }
-    });
-  }, [onImageUpload]);
+      });
+    },
+    [onImageUpload],
+  );
 
   useEffect(() => {
     if (initialImage) {
-      setUploadedFiles([{secure_url: initialImage}]);
+      setUploadedFiles([{ secure_url: initialImage }]);
     }
   }, [initialImage]);
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: 'image/*',
     multiple: false,
@@ -55,7 +58,8 @@ export default function ImageUploader({initialImage, onImageUpload}) {
     <div>
       <div
         {...getRootProps()}
-        className={`${isDragActive ? 'bg-blue-300' : 'bg-gray-200'
+        className={`${
+          isDragActive ? 'bg-blue-300' : 'bg-gray-200'
         } border p-4 rounded cursor-pointer`}
       >
         <input {...getInputProps()} />
@@ -68,7 +72,7 @@ export default function ImageUploader({initialImage, onImageUpload}) {
           {uploadedFiles.map((file, index) => (
             <li key={index}>
               <AdvancedImage
-                style={{maxWidth: '100%'}}
+                style={{ maxWidth: '100%' }}
                 cldImg={cld.image(file.public_id)}
                 plugins={[responsive(), placeholder()]}
                 alt={`Uploaded Image ${index + 1}`}

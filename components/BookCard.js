@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {useState} from 'react';
+import { useState } from 'react';
 
-export default function BookCard({book}) {
+export default function BookCard({ book }) {
   const [isLoading, setLoading] = useState(true);
 
   function cn(...classes) {
@@ -17,14 +17,14 @@ export default function BookCard({book}) {
             alt={book.title}
             src={book.image_url}
             className={cn(
-                'duration-700 ease-in-out group-hover:opacity-75',
-              isLoading ?
-                'scale-110 blur-2xl grayscale' :
-                'scale-100 blur-0 grayscale-0'
+              'duration-700 ease-in-out group-hover:opacity-75',
+              isLoading
+                ? 'scale-110 blur-2xl grayscale'
+                : 'scale-100 blur-0 grayscale-0',
             )}
             onLoad={() => setLoading(false)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{objectFit: 'cover'}}
+            style={{ objectFit: 'cover' }}
             width={500}
             height={300}
           />

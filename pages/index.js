@@ -1,5 +1,5 @@
-import {supabase} from '../supabase';
-import {useEffect, useState, useRef} from 'react';
+import { supabase } from '../supabase';
+import { useEffect, useState, useRef } from 'react';
 import BookCard from '../components/BookCard';
 
 const useBooks = () => {
@@ -11,7 +11,7 @@ const useBooks = () => {
     const fetchBooks = async () => {
       try {
         setLoading(true);
-        const {data, error} = await supabase.from('thelibrary').select('*');
+        const { data, error } = await supabase.from('thelibrary').select('*');
         if (error) throw error;
         setBooks(data);
       } catch (error) {
@@ -24,16 +24,19 @@ const useBooks = () => {
     fetchBooks();
   }, []);
 
-  return {books, loading, error};
+  return { books, loading, error };
 };
 
 export default function Gallery() {
-  const {books, loading, error} = useBooks();
+  const { books, loading, error } = useBooks();
   const libraryRef = useRef(null);
 
   return (
     <div className="flex flex-col h-full py-12">
-      <div ref={libraryRef} className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex-grow">
+      <div
+        ref={libraryRef}
+        className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex-grow"
+      >
         <div className="text-center">
           <h1 className="text-4xl font-semibold text-gray-800 mb-6">Libros</h1>
           {loading && <p>Cargando libros...</p>}

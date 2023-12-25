@@ -1,5 +1,5 @@
 const cloudinary = require('../../config/cloudinaryConfig')();
-const {generateSignature} = require('../../utils/cloudinaryUtils');
+const { generateSignature } = require('../../utils/cloudinaryUtils');
 
 const handleRequest = async (req, res) => {
   try {
@@ -7,13 +7,13 @@ const handleRequest = async (req, res) => {
     const folderName = req.body.folder;
     const signature = generateSignature(cloudinary, timestamp, folderName);
 
-    res.status(200).json({signature, timestamp});
+    res.status(200).json({ signature, timestamp });
   } catch (error) {
     console.error('Error Message:', error.message);
     console.error('Error Stack:', error.stack);
     res
-        .status(500)
-        .json({error: 'Internal Server Error', details: error.message});
+      .status(500)
+      .json({ error: 'Internal Server Error', details: error.message });
   }
 };
 

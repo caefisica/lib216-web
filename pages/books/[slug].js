@@ -1,8 +1,8 @@
-import {supabase} from '../../supabase';
+import { supabase } from '../../supabase';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Book({book}) {
+export default function Book({ book }) {
   return (
     <div className="flex h-screen flex-col justify-between">
       <div className="mx-auto mt-16 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -34,7 +34,9 @@ export default function Book({book}) {
         </div>
         <div className="mt-8">
           <Link href="/" passHref>
-            <p className="text-blue-500 hover:underline cursor-pointer">← Regresar al inicio</p>
+            <p className="text-blue-500 hover:underline cursor-pointer">
+              ← Regresar al inicio
+            </p>
           </Link>
         </div>
       </div>
@@ -42,12 +44,12 @@ export default function Book({book}) {
   );
 }
 
-export async function getStaticProps({params}) {
-  const {data: book, error} = await supabase
-      .from('thelibrary')
-      .select('*')
-      .eq('slug', params.slug)
-      .single();
+export async function getStaticProps({ params }) {
+  const { data: book, error } = await supabase
+    .from('thelibrary')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
 
   if (error) console.error('Error: ', error);
 
@@ -59,13 +61,11 @@ export async function getStaticProps({params}) {
 }
 
 export async function getStaticPaths() {
-  const {data: books} = await supabase
-      .from('thelibrary')
-      .select('slug');
+  const { data: books } = await supabase.from('thelibrary').select('slug');
 
   const paths = books.map((book) => ({
-    params: {slug: book.slug},
+    params: { slug: book.slug },
   }));
 
-  return {paths, fallback: false};
+  return { paths, fallback: false };
 }

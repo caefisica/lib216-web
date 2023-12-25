@@ -1,7 +1,7 @@
-import {useEffect, useState} from 'react';
-import {supabase} from '../supabase';
+import { useEffect, useState } from 'react';
+import { supabase } from '../supabase';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,7 +12,8 @@ export default function Login() {
 
   useEffect(() => {
     const checkSession = async () => {
-      const {data: sessionData, error: sessionError} = await supabase.auth.getSession();
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
 
       if (sessionError) {
         setErrorMessage(sessionError.message);
@@ -20,17 +21,22 @@ export default function Login() {
       }
 
       if (sessionData.session) {
-        setMessage('Ya has iniciado sesión. Serás redirigido al panel de control en breve.');
+        setMessage(
+          'Ya has iniciado sesión. Serás redirigido al panel de control en breve.',
+        );
         router.push('/dashboard');
       } else {
         // Si no existe ninguna sesión, comprobar si es necesario actualizar la sesión
-        const {data: refreshData, error: refreshError} = await supabase.auth.refreshSession();
+        const { data: refreshData, error: refreshError } =
+          await supabase.auth.refreshSession();
 
         if (refreshError) {
           // Si no podemos refrescar la sesión, debemos manejar el error silenciosamente ya que el usuario intentará iniciar sesión de todos modos.
           console.error('Error al refrescar la sesión:', refreshError.message);
         } else if (refreshData.session) {
-          setMessage('You are already logged in. You will be redirected to dashboard shortly.');
+          setMessage(
+            'You are already logged in. You will be redirected to dashboard shortly.',
+          );
           router.push('/dashboard');
         }
       }
@@ -42,7 +48,7 @@ export default function Login() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const {error} = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/dashboard`,
@@ -51,9 +57,13 @@ export default function Login() {
 
     if (error) {
       console.error('Error al iniciar sesión:', error.message);
-      setErrorMessage('Error al iniciar sesión. Por favor, inténtelo de nuevo.');
+      setErrorMessage(
+        'Error al iniciar sesión. Por favor, inténtelo de nuevo.',
+      );
     } else {
-      setMessage('Revisa tu correo electrónico para el correo de confirmación.');
+      setMessage(
+        'Revisa tu correo electrónico para el correo de confirmación.',
+      );
     }
 
     setIsSubmitting(false);
@@ -95,7 +105,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isSubmitting ? 'opacity-50' : ''}`}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                isSubmitting ? 'opacity-50' : ''
+              }`}
             >
               {isSubmitting ? 'Enviando...' : 'Enviar enlace de confirmación'}
             </button>
@@ -104,10 +116,11 @@ export default function Login() {
 
         <div className="mt-4">
           <Link href="/">
-            <p className="text-indigo-500 hover:text-indigo-700">Regresar al inicio</p>
+            <p className="text-indigo-500 hover:text-indigo-700">
+              Regresar al inicio
+            </p>
           </Link>
         </div>
-
       </div>
     </div>
   );

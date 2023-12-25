@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
-import {supabase} from '../../supabase';
-import {useRouter} from 'next/router';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../supabase';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import ImageUploader from './ImageUploader';
 
 // For toast notifications
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 /**
@@ -31,10 +31,10 @@ export default function EditBook() {
   }, [router.query.slug]);
 
   const fetchBook = async (slug) => {
-    const {data: books, error} = await supabase
-        .from('thelibrary')
-        .select('*')
-        .eq('slug', slug);
+    const { data: books, error } = await supabase
+      .from('thelibrary')
+      .select('*')
+      .eq('slug', slug);
 
     if (error) {
       toast.error('Error fetching book details');
@@ -55,7 +55,8 @@ export default function EditBook() {
     if (initialBook.title !== title) fields.title = title;
     if (initialBook.author !== author) fields.author = author;
     if (initialBook.category !== category) fields.category = category;
-    if (initialBook.description !== description) fields.description = description;
+    if (initialBook.description !== description)
+      fields.description = description;
     if (initialBook.published !== published) fields.published = published;
     if (initialBook.imageUrl !== imageUrl) fields.imageUrl = imageUrl;
     return fields;
@@ -64,11 +65,11 @@ export default function EditBook() {
   const editBook = async () => {
     const updatedFields = getUpdatedFields();
 
-    const {data, error} = await supabase
-        .from('thelibrary')
-        .update(updatedFields)
-        .eq('slug', slug)
-        .select('*');
+    const { data, error } = await supabase
+      .from('thelibrary')
+      .update(updatedFields)
+      .eq('slug', slug)
+      .select('*');
 
     if (error) {
       toast.error('Hubo un error al actualizar el libro.');
@@ -86,7 +87,9 @@ export default function EditBook() {
     <div className="flex flex-col h-full py-12">
       <ToastContainer />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-white shadow rounded-lg">
-        <h2 className="text-3xl font-semibold text-gray-900 mb-8">Editar libro</h2>
+        <h2 className="text-3xl font-semibold text-gray-900 mb-8">
+          Editar libro
+        </h2>
         <form className="space-y-6">
           <div className="grid grid-cols-1 gap-6 mb-4">
             <div className="flex items-center">
@@ -97,13 +100,19 @@ export default function EditBook() {
                 checked={published}
                 onChange={(e) => setPublished(e.target.checked)}
               />
-              <label htmlFor="published" className="ml-2 block text-lg text-gray-700">
+              <label
+                htmlFor="published"
+                className="ml-2 block text-lg text-gray-700"
+              >
                 Publicado
               </label>
             </div>
 
             <div>
-              <label htmlFor="slug" className="block text-lg font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="slug"
+                className="block text-lg font-medium text-gray-700 mb-1"
+              >
                 Slug del libro
               </label>
               <input
@@ -116,7 +125,10 @@ export default function EditBook() {
             </div>
 
             <div>
-              <label htmlFor="title" className="block text-lg font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="title"
+                className="block text-lg font-medium text-gray-700 mb-1"
+              >
                 Título del libro
               </label>
               <input
@@ -129,7 +141,10 @@ export default function EditBook() {
             </div>
 
             <div>
-              <label htmlFor="author" className="block text-lg font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="author"
+                className="block text-lg font-medium text-gray-700 mb-1"
+              >
                 Autor
               </label>
               <input
@@ -142,7 +157,10 @@ export default function EditBook() {
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="category"
+                className="block text-lg font-medium text-gray-700 mb-1"
+              >
                 Categoría
               </label>
               <input
@@ -155,7 +173,10 @@ export default function EditBook() {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-lg font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="description"
+                className="block text-lg font-medium text-gray-700 mb-1"
+              >
                 Descripción
               </label>
               <textarea
@@ -168,7 +189,12 @@ export default function EditBook() {
             </div>
           </div>
 
-          {initialBook && <ImageUploader initialImage={initialBook.image_url} onImageUpload={setImageUrl} />}
+          {initialBook && (
+            <ImageUploader
+              initialImage={initialBook.image_url}
+              onImageUpload={setImageUrl}
+            />
+          )}
 
           <div className="flex items-center justify-between">
             <button
