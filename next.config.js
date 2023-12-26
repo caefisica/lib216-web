@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+        port: "",
+      }
     ],
   },
 };

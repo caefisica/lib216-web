@@ -1,10 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "./utils/auth";
 
-export default function Page() {
-  return (
-    <div>
-      <Button>Hello from shad</Button>
-      <h1>asdasd</h1>
-    </div>
-  );
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return redirect("/login");
+  } else {
+    return redirect("/home");
+  }
 }
