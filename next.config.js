@@ -1,4 +1,5 @@
-/** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -13,6 +14,10 @@ const nextConfig = {
         port: "",
       }
     ],
+  },
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.join(__dirname, '.');
+    return config;
   },
 };
 

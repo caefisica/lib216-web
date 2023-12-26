@@ -1,8 +1,8 @@
+import { MovieCard } from "@/app/components/MovieCard";
+import { authOptions } from "@/app/utils/auth";
+import prisma from "@/app/utils/db";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
-import { MovieCard } from "../../../components/MovieCard";
-import { authOptions } from "../../../utils/auth";
-import prisma from "../../../utils/db";
 
 async function getData(userId: string) {
   const data = await prisma.watchList.findMany({

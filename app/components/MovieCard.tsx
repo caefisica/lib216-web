@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Heart, PlayCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Button } from "../../components/ui/button";
 import { addTowatchlist, deleteFromWatchlist } from "../action";
 import PlayVideoModal from "./PlayVideoModal";
 
