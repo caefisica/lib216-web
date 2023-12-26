@@ -16,7 +16,8 @@ function checkEnvVariables(...variables: string[]): boolean {
 
 export default async function POST(req: NextRequest) {
   const areEnvVariablesDefined = checkEnvVariables(
-    'API_AUTH_TOKEN',
+    'SIGN_API_BASE_URL',
+    'SIGN_API_AUTH_TOKEN',
     'CLOUDINARY_FOLDER_NAME',
     'CLOUDINARY_API_KEY',
     'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME',
@@ -38,11 +39,16 @@ export default async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get('file');
 
-    const signResponse = await fetch('http://localhost:3000/api/sign', {
+    // Internal API to sign the upload request, it can't be done in Edge Runtime
+    // because Cloudinary does not support this.
+    // See: https://github.com/caefisica/cloudinary_signature
+    const apiUrl = `${process.env.SIGN_API_BASE_URL}/api/sign`;
+
+    const signResponse = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-token': process.env.API_AUTH_TOKEN,
+        'x-api-token': process.env.SIGN_API_AUTH_TOKEN,
       },
       body: JSON.stringify({ folder: process.env.CLOUDINARY_FOLDER_NAME }),
     });
