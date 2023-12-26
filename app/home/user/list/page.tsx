@@ -81,3 +81,5 @@ export default async function Watchlist() {
     </>
   );
 }
+
+export const runtime = 'edge';

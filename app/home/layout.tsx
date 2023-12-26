@@ -24,3 +24,4 @@ export default async function HomeLayout({
     </>
   );
 }
+export const runtime = 'edge';

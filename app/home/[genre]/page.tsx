@@ -131,3 +131,5 @@ export default async function CategoryPage({
     </div>
   );
 }
+
+export const runtime = 'edge';

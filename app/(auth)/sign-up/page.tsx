@@ -47,3 +47,4 @@ export default async function SignUp() {
     </div>
   );
 }
+export const runtime = 'edge';

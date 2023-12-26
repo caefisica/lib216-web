@@ -48,3 +48,4 @@ export default async function Login() {
     </div>
   );
 }
+export const runtime = 'edge';
