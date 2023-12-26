@@ -20,3 +20,5 @@ export const {
     }) as any,
   ],
 });
+
+export const runtime = 'edge';
