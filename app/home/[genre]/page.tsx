@@ -1,15 +1,15 @@
-import { MovieCard } from "@/app/components/MovieCard";
-import { authOptions } from "@/app/utils/auth";
-import prisma from "@/app/utils/db";
-import { getServerSession } from "next-auth";
-import Image from "next/image";
+import { MovieCard } from '@/app/components/MovieCard';
+import { authOptions } from '@/app/utils/auth';
+import prisma from '@/app/utils/db';
+import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 
 async function getData(category: string, userId: string) {
   switch (category) {
-    case "shows": {
+    case 'shows': {
       const data = await prisma.movie.findMany({
         where: {
-          category: "show",
+          category: 'show',
         },
         select: {
           age: true,
@@ -29,10 +29,10 @@ async function getData(category: string, userId: string) {
       });
       return data;
     }
-    case "movies": {
+    case 'movies': {
       const data = await prisma.movie.findMany({
         where: {
-          category: "movie",
+          category: 'movie',
         },
         select: {
           age: true,
@@ -53,10 +53,10 @@ async function getData(category: string, userId: string) {
 
       return data;
     }
-    case "recently": {
+    case 'recently': {
       const data = await prisma.movie.findMany({
         where: {
-          category: "recent",
+          category: 'recent',
         },
         select: {
           age: true,

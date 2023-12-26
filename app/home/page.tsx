@@ -1,5 +1,5 @@
-import MovieVideo from "../components/MovieVideo";
-import RecentlyAdded from "../components/RecentlyAdded";
+import MovieVideo from '../components/MovieVideo';
+import RecentlyAdded from '../components/RecentlyAdded';
 
 export default function HomePage() {
   return (

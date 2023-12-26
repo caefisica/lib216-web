@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
-import Image from "next/image";
-import { authOptions } from "../utils/auth";
-import prisma from "../utils/db";
-import { MovieCard } from "./MovieCard";
+import { getServerSession } from 'next-auth';
+import Image from 'next/image';
+import { authOptions } from '../utils/auth';
+import prisma from '../utils/db';
+import { MovieCard } from './MovieCard';
 
 async function getData(userId: string) {
   const data = await prisma.movie.findMany({
@@ -22,7 +22,7 @@ async function getData(userId: string) {
       duration: true,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
     take: 4,
   });

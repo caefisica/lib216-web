@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Bell, Search } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import Logo from "../../public/images/cbo.jpeg";
-import UserNav from "./UserNav";
+import { Bell, Search } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Logo from '../../public/images/cbo.jpeg';
+import UserNav from './UserNav';
 
 interface linkProps {
   name: string;
@@ -13,11 +13,11 @@ interface linkProps {
 }
 
 const links: linkProps[] = [
-  { name: "Home", href: "/home" },
-  { name: "Tv Shows", href: "/home/shows" },
-  { name: "Movies", href: "/home/movies" },
-  { name: "Recently Added", href: "/home/recently" },
-  { name: "My List", href: "/home/user/list" },
+  { name: 'Home', href: '/home' },
+  { name: 'Tv Shows', href: '/home/shows' },
+  { name: 'Movies', href: '/home/movies' },
+  { name: 'Recently Added', href: '/home/recently' },
+  { name: 'My List', href: '/home/user/list' },
 ];
 
 export default function Navbar() {

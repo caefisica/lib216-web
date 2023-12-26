@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Heart, PlayCircle } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { addTowatchlist, deleteFromWatchlist } from "../action";
-import PlayVideoModal from "./PlayVideoModal";
+import { Button } from '@/components/ui/button';
+import { Heart, PlayCircle } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { addTowatchlist, deleteFromWatchlist } from '../action';
+import PlayVideoModal from './PlayVideoModal';
 
 interface iAppProps {
   title: string;

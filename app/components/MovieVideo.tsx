@@ -1,5 +1,5 @@
-import prisma from "../utils/db";
-import MovieButtons from "./MovieButtons";
+import prisma from '../utils/db';
+import MovieButtons from './MovieButtons';
 
 async function getData() {
   const data = await prisma.movie.findFirst({

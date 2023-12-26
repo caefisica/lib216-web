@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { InfoIcon, PlayCircle } from "lucide-react";
-import { useState } from "react";
-import PlayVideoModal from "./PlayVideoModal";
+import { Button } from '@/components/ui/button';
+import { InfoIcon, PlayCircle } from 'lucide-react';
+import { useState } from 'react';
+import PlayVideoModal from './PlayVideoModal';
 
 interface iAppProps {
   overview: string;
