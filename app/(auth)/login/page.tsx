@@ -1,11 +1,10 @@
-import GithubSignInButton from "@/app/components/GithubSignInButton";
-import GoogleSignInButton from "@/app/components/GoogleSignInButton";
-import { authOptions } from "@/app/utils/auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { default as GithubSignInButton, default as GoogleSignInButton } from "../../../app/components/GithubSignInButton";
+import { authOptions } from "../../../app/utils/auth";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 
 export default async function Login() {
   const session = await getServerSession(authOptions);

@@ -1,9 +1,9 @@
-import type { NextAuthOptions } from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import prisma from './db'
+import type { NextAuthOptions } from 'next-auth'
+import EmailProvider from 'next-auth/providers/email'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import EmailProvider from 'next-auth/providers/email'
+import prisma from './db'
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma) as any,
