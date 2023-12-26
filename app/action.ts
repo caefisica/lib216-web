@@ -1,8 +1,7 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import { authOptions } from './utils/auth';
+import { auth } from './utils/auth';
 import prisma from './utils/db';
 
 export async function addTowatchlist(formData: FormData) {
@@ -10,7 +9,7 @@ export async function addTowatchlist(formData: FormData) {
 
   const movieId = formData.get('movieId');
   const pathname = formData.get('pathname') as string;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   // eslint-disable-next-line no-unused-vars
   const data = await prisma.watchList.create({

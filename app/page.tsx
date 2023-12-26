@@ -1,9 +1,8 @@
-import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions } from './utils/auth';
+import { auth } from './utils/auth';
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     return redirect('/login');

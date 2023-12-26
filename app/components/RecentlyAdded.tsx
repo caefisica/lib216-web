@@ -1,6 +1,5 @@
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
-import { authOptions } from '../utils/auth';
+import { auth } from '../utils/auth';
 import prisma from '../utils/db';
 import { MovieCard } from './MovieCard';
 
@@ -31,7 +30,7 @@ async function getData(userId: string) {
 }
 
 export default async function RecentlyAdded() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const data = await getData(session?.user?.email as string);
 
   return (

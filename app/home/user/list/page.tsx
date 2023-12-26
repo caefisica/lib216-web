@@ -1,7 +1,6 @@
 import { MovieCard } from '@/app/components/MovieCard';
-import { authOptions } from '@/app/utils/auth';
+import { auth } from '@/app/utils/auth';
 import prisma from '@/app/utils/db';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 
 async function getData(userId: string) {
@@ -30,7 +29,7 @@ async function getData(userId: string) {
 }
 
 export default async function Watchlist() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const data = await getData(session?.user?.email as string);
   return (
     <>

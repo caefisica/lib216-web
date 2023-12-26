@@ -1,14 +1,13 @@
 import GithubSignInButton from '@/app/components/GithubSignInButton';
 import GoogleSignInButton from '@/app/components/GoogleSignInButton';
-import { authOptions } from '@/app/utils/auth';
+import { auth } from '@/app/utils/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function SignUp() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session) {
     return redirect('/home');
   }
