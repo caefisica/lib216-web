@@ -1,62 +1,56 @@
-import React, {useState, useCallback, useEffect} from 'react';
-import {useDropzone} from 'react-dropzone';
-import {Cloudinary} from '@cloudinary/url-gen';
-import {AdvancedImage, responsive, placeholder} from '@cloudinary/react';
+import { AdvancedImage, placeholder, responsive } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen';
 import Image from 'next/image';
-
-const cloudName = 'dubu';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: cloudName,
+    cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   },
 });
 
-export default function ImageUploader({initialImage, onImageUpload}) {
+export default function ImageUploader({ initialImage, onImageUpload }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [currentImage, setCurrentImage] = useState(initialImage);
 
-  const getSignature = async () => {
-    const response = await fetch('/api/sign');
-    const data = await response.json();
-    const {signature, timestamp} = data;
-    return {signature, timestamp};
-  };
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      acceptedFiles.forEach(async (acceptedFile) => {
+        const formData = new FormData();
+        formData.append('file', acceptedFile);
 
-  const onDrop = useCallback(async (acceptedFiles) => {
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+          });
 
-    const {signature, timestamp} = await getSignature();
+          if (!response.ok) {
+            throw new Error(`Image upload failed: ${response.statusText}`);
+          }
 
-    acceptedFiles.forEach(async (acceptedFile) => {
-      const formData = new FormData();
-      formData.append('file', acceptedFile);
-      formData.append('signature', signature);
-      formData.append('timestamp', timestamp);
-      formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_KEY);
-
-      const response = await fetch(url, {
-        method: 'post',
-        body: formData,
+          const data = await response.json();
+          setUploadedFiles((old) => [...old, data]);
+          onImageUpload(data.secure_url);
+        } catch (error) {
+          console.error('Upload error:', error);
+          setErrorMessage('Failed to upload image. Please try again.');
+        }
       });
-
-      if (!response.ok) {
-        console.error('Fetch error:', response.statusText);
-        return;
-      }
-
-      const data = await response.json();
-      setUploadedFiles((old) => [...old, data]);
-      onImageUpload(data.secure_url);
-    });
-  }, [onImageUpload]);
+    },
+    [onImageUpload],
+  );
 
   useEffect(() => {
-    if (initialImage) {
-      setUploadedFiles([{secure_url: initialImage}]);
+    if (uploadedFiles.length > 0) {
+      const latestImage = uploadedFiles[uploadedFiles.length - 1].secure_url;
+      setCurrentImage(latestImage);
     }
-  }, [initialImage]);
+  }, [uploadedFiles]);
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: 'image/*',
     multiple: false,
@@ -64,28 +58,37 @@ export default function ImageUploader({initialImage, onImageUpload}) {
 
   return (
     <div>
-      <div {...getRootProps()} className={`${isDragActive ? 'bg-blue-300' : 'bg-gray-200'} border p-4 rounded cursor-pointer`}>
+      <div
+        {...getRootProps()}
+        className={`${
+          isDragActive ? 'bg-blue-300' : 'bg-gray-200'
+        } border p-4 rounded cursor-pointer`}
+      >
         <input {...getInputProps()} />
-        <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una imagen</p>
+        <p>
+          Arrastra y suelta una imagen aquí, o haz clic para seleccionar una
+          imagen
+        </p>
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <ul>
-          {uploadedFiles.map((file, i) => (
-            <li key={i}>
+          {uploadedFiles.map((file, index) => (
+            <li key={index}>
               <AdvancedImage
-                style={{maxWidth: '100%'}}
+                style={{ maxWidth: '100%' }}
                 cldImg={cld.image(file.public_id)}
                 plugins={[responsive(), placeholder()]}
-                alt={`Uploaded Image ${i + 1}`}
+                alt={`Uploaded Image ${index + 1}`}
               />
             </li>
           ))}
         </ul>
       </div>
 
-      {initialImage && (
+      {currentImage && (
         <div className="my-6">
           <p className="text-lg font-medium text-gray-700 mb-2">Portada:</p>
           <Image
-            src={initialImage}
+            src={currentImage}
             alt="Current Image"
             width={500}
             height={750}
