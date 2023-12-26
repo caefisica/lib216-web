@@ -1,7 +1,9 @@
+"use client";
+
 import Link from 'next/link';
-import { useEffect, useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { supabase } from '../supabase';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { supabase } from '../../supabase';
 
 export default function Dashboard() {
   const router = useRouter();
