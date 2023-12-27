@@ -17,6 +17,9 @@ dependencies:
   '@prisma/client':
     specifier: ^5.7.1
     version: 5.7.1(prisma@5.7.1)
+  '@prisma/extension-accelerate':
+    specifier: ^0.6.2
+    version: 0.6.2(@prisma/client@5.7.1)
   '@radix-ui/react-avatar':
     specifier: ^1.0.4
     version: 1.0.4(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -702,6 +705,15 @@ packages:
       '@prisma/engines-version': 5.7.1-1.0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
       '@prisma/fetch-engine': 5.7.1
       '@prisma/get-platform': 5.7.1
+
+  /@prisma/extension-accelerate@0.6.2(@prisma/client@5.7.1):
+    resolution: {integrity: sha512-KIBVPeWt8qaSg7wQ+TXmCVeUDoW75whtXcdS9dbHxRoO2OWFH5I9+qbkHBhx5Wj/h1wQpS8usuxGnsZqiBjUpQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@prisma/client': '>=4.16.1'
+    dependencies:
+      '@prisma/client': 5.7.1(prisma@5.7.1)
+    dev: false
 
   /@prisma/fetch-engine@5.7.1:
     resolution: {integrity: sha512-9ELauIEBkIaEUpMIYPRlh5QELfoC6pyHolHVQgbNxglaINikZ9w9X7r1TIePAcm05pCNp2XPY1ObQIJW5nYfBQ==}
