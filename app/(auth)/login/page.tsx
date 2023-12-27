@@ -1,4 +1,4 @@
-import EmailSignInForm from '@/app/components/EmailSignInForm';
+import EmailAuthForm from '@/app/components/EmailAuthForm';
 import GithubSignInButton from '@/app/components/GithubSignInButton';
 import GoogleSignInButton from '@/app/components/GoogleSignInButton';
 import { auth } from '@/app/utils/auth';
@@ -12,9 +12,8 @@ export default async function Login() {
     return redirect('/home');
   }
   return (
-    <div className="mt-24  rounded bg-black/80 py-10 px-6 md:mt-0 md:max-w-sm md:px-14">
-
-      <EmailSignInForm />
+    <div className="mt-24 rounded bg-black/80 py-10 px-6 md:mt-0 md:max-w-sm md:px-14">
+      <EmailAuthForm title="Log in" buttonText="Log in" />
 
       <div className="text-gray-500 text-sm mt-2">
         New to Neflix?{' '}
@@ -30,4 +29,5 @@ export default async function Login() {
     </div>
   );
 }
+
 export const runtime = 'edge';
