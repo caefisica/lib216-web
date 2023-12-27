@@ -1,7 +1,8 @@
+import Navbar from '@/app/components/Navbar';
+import { auth } from '@/app/utils/auth';
+import { User } from '@/lib/types';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
-import Navbar from '../components/Navbar';
-import { auth } from '../utils/auth';
 
 export default async function HomeLayout({
   children,
@@ -14,9 +15,15 @@ export default async function HomeLayout({
     return redirect('/login');
   }
 
+  const user: User = {
+    name: session.user?.name ?? 'Default Name',
+    email: session.user?.email ?? 'default@email.com',
+    image: session.user?.image ?? '/public/images/cbo.jpeg',
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
         {children}
       </main>

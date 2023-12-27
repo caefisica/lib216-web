@@ -10,16 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { UserNavProps } from '@/lib/types';
 import { signOut } from 'next-auth/react';
 
-export default function UserNav() {
+export default function UserNav({ user }: UserNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-sm">
           <Avatar className="h-10 w-10 rounded-sm">
-            <AvatarImage src="https://uipxmbnthbibbjfgfvep.supabase.co/storage/v1/object/public/user%20image/make-the-cat-masculine-589045884.png" />
-            <AvatarFallback className="rounded-sm">Jan</AvatarFallback>
+            <AvatarImage src={user.image} />
+            <AvatarFallback className="rounded-sm">{user.name.charAt(0)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -27,9 +28,9 @@ export default function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Jan</p>
+            <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              jkasdf@asdkfj.com
+              {user.email}
             </p>
           </div>
         </DropdownMenuLabel>
