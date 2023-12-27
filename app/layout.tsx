@@ -7,7 +7,10 @@ import './globals.css';
 const jost = Jost({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Biblioteca 216 - @caefisica',
+  title: {
+    default: 'Biblioteca 216 - @caefisica',
+    template: '%s | @caefisica'
+  },
   description:
     'Somos estudiantes de física (UNMSM) y nos hemos propuesto hacer tu viaje por la física más accesible',
 };
