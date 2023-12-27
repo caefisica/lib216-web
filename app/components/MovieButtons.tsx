@@ -28,13 +28,13 @@ export default function MovieButtons({
   return (
     <>
       <Button onClick={() => setOpen(true)} className="text-lg font-medium">
-        <PlayCircle className="mr-2 h-6 w-6" /> Play
+        <PlayCircle className="mr-2 h-6 w-6" /> Leer
       </Button>
       <Button
         onClick={() => setOpen(true)}
         className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white"
       >
-        <InfoIcon className="mr-2 h-6 w-6" /> Learn More
+        <InfoIcon className="mr-2 h-6 w-6" /> Saber más
       </Button>
 
       <PlayVideoModal

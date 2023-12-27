@@ -9,11 +9,11 @@ import { usePathname } from 'next/navigation';
 import UserNav from './UserNav';
 
 const links: linkProps[] = [
-  { name: 'Home', href: '/home' },
+  { name: 'Inicio', href: '/home' },
   { name: 'Tv Shows', href: '/home/shows' },
   { name: 'Movies', href: '/home/movies' },
-  { name: 'Recently Added', href: '/home/recently' },
-  { name: 'My List', href: '/home/user/list' },
+  { name: 'Nuevos libros', href: '/home/recently' },
+  { name: 'Mi lista', href: '/home/user/list' },
 ];
 
 export default function Navbar({ user }: NavbarProps) {
