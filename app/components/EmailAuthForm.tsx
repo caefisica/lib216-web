@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from '@/components/ui/use-toast';
 import { signIn } from 'next-auth/react';
 import React, { useState } from 'react';
 
@@ -11,7 +11,10 @@ type EmailAuthFormProps = {
   buttonText: string;
 };
 
-export default function EmailAuthForm({ title, buttonText }: EmailAuthFormProps) {
+export default function EmailAuthForm({
+  title,
+  buttonText,
+}: EmailAuthFormProps) {
   const [email, setEmail] = useState<null | string>(null);
   const { toast } = useToast();
 
@@ -60,4 +63,4 @@ export default function EmailAuthForm({ title, buttonText }: EmailAuthFormProps)
       </div>
     </form>
   );
-};
+}
