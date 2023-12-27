@@ -31,7 +31,7 @@ export default function Navbar({ user }: NavbarProps) {
                 <li>
                   <Link
                     href={link.href}
-                    className="text-white font-semibold underline text-sm"
+                    className="text-white font-semibold text-base"
                   >
                     {link.name}
                   </Link>
@@ -39,7 +39,7 @@ export default function Navbar({ user }: NavbarProps) {
               ) : (
                 <li>
                   <Link
-                    className="text-gray-300 font-normal text-sm"
+                    className="text-gray-300 font-medium text-base"
                     href={link.href}
                   >
                     {link.name}
