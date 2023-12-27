@@ -13,12 +13,12 @@ export default async function Login() {
   }
   return (
     <div className="mt-24 rounded bg-black/80 py-10 px-6 md:mt-0 md:max-w-sm md:px-14">
-      <EmailAuthForm title="Log in" buttonText="Log in" />
+      <EmailAuthForm title="Inicia sesión" buttonText="Iniciar sesión" />
 
       <div className="text-gray-500 text-sm mt-2">
-        New to Neflix?{' '}
+        ¿Nuevo miembro?{' '}
         <Link className="text-white hover:underline" href="/sign-up">
-          Sign up now
+          Regístrate ahora
         </Link>
       </div>
 

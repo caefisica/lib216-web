@@ -13,12 +13,12 @@ export default async function SignUp() {
   }
   return (
     <div className="mt-24 rounded bg-black/80 py-10 px-6 md:mt-0 md:max-w-sm md:px-14">
-      <EmailAuthForm title="Sign Up" buttonText="Sign Up" />
+      <EmailAuthForm title="Regístrate" buttonText="Comenzar" />
 
       <div className="text-gray-500 text-sm mt-2">
-        Alredy Have a account?{' '}
+        ¿Ya tienes una cuenta?{' '}
         <Link className="text-white hover:underline" href="/login">
-          Log in now!
+          Inicia sesión
         </Link>
       </div>
 

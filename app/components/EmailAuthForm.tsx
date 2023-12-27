@@ -29,16 +29,16 @@ export default function EmailAuthForm({
 
     if (!authResult?.ok) {
       toast({
-        title: 'An error occurred',
-        description: 'Something went wrong, please try again',
+        title: 'Ha ocurrido un error',
+        description: 'Algo ha salido mal, intenta de nuevo',
         variant: 'destructive',
       });
       return;
     }
 
     toast({
-      title: title === 'Sign Up' ? 'Signup successful' : 'Check your email',
-      description: 'A magic link has been sent to your email',
+      title: title === 'Regístrate' ? 'Registro exitoso' : 'Revisa tu correo',
+      description: 'Un correo con un enlace mágico ha sido enviado',
     });
   };
 

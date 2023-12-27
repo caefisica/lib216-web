@@ -36,8 +36,8 @@ export const {
           body: JSON.stringify({
             from: process.env.AUTH_EMAIL_FROM,
             to: [email],
-            subject: 'Your sign-in link',
-            html: `<p>Please use the following link to sign in:</p><p><a href="${url}">Sign in</a></p>`,
+            subject: 'Biblioteca 216 - Iniciar sesión ✨',
+            html: `<p>Por favor, utilice el siguiente enlace para iniciar sesión:</p><p><a href="${url}">Iniciar sesión</a></p>`,
           }),
         });
 
