@@ -25,18 +25,18 @@ export const {
       async sendVerificationRequest({
         identifier: email,
         url,
-        token
+        token, // eslint-disable-line
       }: SendVerificationRequestParams) {
-        const response = await fetch("https://api.resend.com/emails", {
-          method: "POST",
+        const response = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.AUTH_EMAIL_SERVER_PASSWORD}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.AUTH_EMAIL_SERVER_PASSWORD}`,
           },
           body: JSON.stringify({
             from: process.env.AUTH_EMAIL_FROM,
             to: [email],
-            subject: "Your sign-in link",
+            subject: 'Your sign-in link',
             html: `<p>Please use the following link to sign in:</p><p><a href="${url}">Sign in</a></p>`,
           }),
         });
