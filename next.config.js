@@ -6,13 +6,13 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
-        port: "",
+        port: '',
       },
       {
-        protocol: "https",
-        hostname: "image.tmdb.org",
-        port: "",
-      }
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        port: '',
+      },
     ],
   },
   webpack: (config) => {
