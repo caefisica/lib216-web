@@ -7,7 +7,7 @@ import prisma from './utils/db';
 export async function addTowatchlist(formData: FormData) {
   'use server';
 
-  const movieId = formData.get('movieId');
+  const bookId = formData.get('bookId');
   const pathname = formData.get('pathname') as string;
   const session = await auth();
 
@@ -15,7 +15,7 @@ export async function addTowatchlist(formData: FormData) {
   const data = await prisma.watchList.create({
     data: {
       userId: session?.user?.email as string,
-      movieId: Number(movieId),
+      bookId: Number(bookId),
     },
   });
 
