@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -38,37 +38,97 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Reservations  Reservation[]
+  WatchLists    WatchList[]
 }
 
-model Movie {
-  id            Int         @id
-  imageString   String
-  title         String
-  age           Int
-  duration      Float
-  overview      String
-  release       Int
-  videoSource   String
-  category      String
-  youtubeString String
-  WatchLists    WatchList[]
+model Author {
+  id          Int     @id @default(autoincrement())
+  imageString String
+  name        String
+  bio         String?
+  Books       Book[]
+}
+
+model Book {
+  id              Int           @id @default(autoincrement())
+  title           String
+  originalTitle   String?
+  language        String
+  isbn            String
+  overview        String
+  videoSource     String
+  youtubeUrl      String?
+  category        Category      @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  publicationYear Int
+  authorId        Int
+  condition       String
+  quantity        Int
+  isOriginal      Boolean
+  availability    String
+  imageStrings    String[]
+  Librarians      Librarian[]   @relation("BookUpdates")
+  AuditTrails     AuditTrail[]
+  Reservations    Reservation[]
+  WatchLists      WatchList[]
+
+  Author Author @relation(fields: [authorId], references: [id])
 
   createdAt DateTime @default(now())
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  Books Book[]
+}
+
+model Librarian {
+  id          Int          @id @default(autoincrement())
+  name        String
+  imageString String?
+  Books       Book[]       @relation("BookUpdates")
+  updatedAt   DateTime?
+  AuditTrails AuditTrail[]
+}
+
+model AuditTrail {
+  id       Int      @id @default(autoincrement())
+  bookId   Int
+  editedBy Int
+  editDate DateTime @default(now())
+  changes  String
+
+  book      Book      @relation(fields: [bookId], references: [id])
+  librarian Librarian @relation(fields: [editedBy], references: [id])
+}
+
+model Reservation {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  bookId     Int
+  reservedOn DateTime @default(now())
+  dueBy      DateTime
+
+  user User @relation(fields: [userId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
 }
 
 model WatchList {
   id     String @id @default(uuid())
   userId String
+  bookId Int?
 
-  Movie   Movie? @relation(fields: [movieId], references: [id])
-  movieId Int?
+  user User  @relation(fields: [userId], references: [id])
+  book Book? @relation(fields: [bookId], references: [id])
 }
 
 model VerificationToken {
