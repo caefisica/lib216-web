@@ -39,6 +39,8 @@ async function getData(category: string, userId: string) {
     case 'Termodinámica y Física Estadística':
     case 'Mecánica Clásica':
       return await prisma.book.findMany(query);
+    default:
+      return [];
   }
 }
 
