@@ -34,7 +34,7 @@ async function getData(userId: string) {
     take: 4,
   });
 
-  return data.map(book => ({
+  return data.map((book) => ({
     ...book,
     author: book.Author?.name ?? 'Unknown Author',
     category: book.category?.name ?? 'Uncategorized',
