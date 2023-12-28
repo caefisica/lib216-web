@@ -45,8 +45,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Reservations  Reservation[]
-  WatchLists    WatchList[]
+  reservations  Reservation[]
+  watchLists    WatchList[]
 }
 
 model Author {
@@ -54,11 +54,11 @@ model Author {
   imageString String
   name        String
   bio         String?
-  Books       Book[]
+  books       Book[]
 }
 
 model Book {
-  id              Int           @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   title           String
   originalTitle   String?
   language        String
@@ -66,7 +66,6 @@ model Book {
   overview        String
   videoSource     String
   youtubeUrl      String?
-  category        Category      @relation(fields: [categoryId], references: [id])
   categoryId      Int
   publicationYear Int
   authorId        Int
@@ -75,29 +74,48 @@ model Book {
   isOriginal      Boolean
   availability    String
   imageStrings    String[]
-  Librarians      Librarian[]   @relation("BookUpdates")
-  AuditTrails     AuditTrail[]
-  Reservations    Reservation[]
-  WatchLists      WatchList[]
+  createdAt       DateTime @default(now())
+  internalCode    String?  @unique
+  volume          Int?
+  donorId         Int?
+  countryId       Int?
+  edition         String?
 
-  Author Author @relation(fields: [authorId], references: [id])
-
-  createdAt DateTime @default(now())
+  category     Category      @relation(fields: [categoryId], references: [id])
+  author       Author        @relation(fields: [authorId], references: [id])
+  reservations Reservation[]
+  watchLists   WatchList[]
+  librarians   Librarian[]   @relation("BookUpdates")
+  auditTrails  AuditTrail[]
+  donor        Donor?        @relation(fields: [donorId], references: [id])
+  country      Country?      @relation(fields: [countryId], references: [id])
 }
 
 model Category {
   id    Int    @id @default(autoincrement())
   name  String @unique
-  Books Book[]
+  books Book[]
+}
+
+model Donor {
+  id    Int    @id @default(autoincrement())
+  name  String
+  books Book[]
+}
+
+model Country {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  books Book[]
 }
 
 model Librarian {
   id          Int          @id @default(autoincrement())
   name        String
   imageString String?
-  Books       Book[]       @relation("BookUpdates")
+  books       Book[]       @relation("BookUpdates")
   updatedAt   DateTime?
-  AuditTrails AuditTrail[]
+  auditTrails AuditTrail[]
 }
 
 model AuditTrail {

@@ -12,12 +12,12 @@ async function getData(userId: string) {
       youtubeUrl: true,
       publicationYear: true,
       imageStrings: true,
-      WatchLists: {
+      watchLists: {
         where: {
           userId: userId,
         },
       },
-      Author: {
+      author: {
         select: {
           name: true,
         },
@@ -36,7 +36,7 @@ async function getData(userId: string) {
 
   return data.map((book) => ({
     ...book,
-    author: book.Author?.name ?? 'Unknown Author',
+    author: book.author?.name ?? 'Unknown Author',
     category: book.category?.name ?? 'Uncategorized',
   }));
 }
@@ -71,8 +71,8 @@ export default async function RecentlyAdded() {
                 bookId={book.id}
                 overview={book.overview ?? 'No overview available'}
                 title={book.title}
-                watchListId={book.WatchLists[0]?.id ?? ''}
-                watchList={book.WatchLists.length > 0}
+                watchListId={book.watchLists[0]?.id ?? ''}
+                watchList={book.watchLists.length > 0}
                 youtubeUrl={book.youtubeUrl ?? ''}
                 publicationYear={book.publicationYear ?? 0}
                 author={book.author ?? 'Unknown'}
