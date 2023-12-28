@@ -9,20 +9,16 @@ interface iAppProps {
   overview: string;
   youtubeUrl: string;
   id: number;
-  age: number;
   title: string;
-  releaseDate: number;
-  duration: number;
+  publicationYear: number;
 }
 
 export default function MovieButtons({
-  age,
-  duration,
   id,
   overview,
-  releaseDate,
   title,
   youtubeUrl,
+  publicationYear,
 }: iAppProps) {
   const [open, setOpen] = useState(false);
   return (
@@ -40,13 +36,11 @@ export default function MovieButtons({
       <PlayVideoModal
         state={open}
         changeState={setOpen}
-        age={age}
-        duration={duration}
         key={id}
         overview={overview}
-        release={releaseDate}
         title={title}
         youtubeUrl={youtubeUrl}
+        publicationYear={publicationYear}
       />
     </>
   );

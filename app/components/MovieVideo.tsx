@@ -2,17 +2,15 @@ import prisma from '../utils/db';
 import MovieButtons from './MovieButtons';
 
 async function getData() {
-  const data = await prisma.movie.findFirst({
+  const data = await prisma.book.findFirst({
     select: {
       title: true,
       overview: true,
       videoSource: true,
-      imageString: true,
-      release: true,
-      duration: true,
+      imageStrings: true,
+      publicationYear: true,
       id: true,
-      age: true,
-      youtubeString: true,
+      youtubeUrl: true,
     },
   });
   return data;
@@ -24,7 +22,7 @@ export default async function MovieVideo() {
   return (
     <div className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
       <video
-        poster={data?.imageString}
+        poster={data?.imageStrings[0]}
         autoPlay
         muted
         loop
@@ -39,13 +37,11 @@ export default async function MovieVideo() {
         <p className="text-white text-lg mt-5 line-clamp-3">{data?.overview}</p>
         <div className="flex gap-x-3 mt-4">
           <MovieButtons
-            age={data?.age as number}
-            duration={data?.duration as number}
             id={data?.id as number}
             overview={data?.overview as string}
-            releaseDate={data?.release as number}
+            publicationYear={data?.publicationYear as number}
             title={data?.title as string}
-            youtubeUrl={data?.youtubeString as string}
+            youtubeUrl={data?.youtubeUrl as string}
             key={data?.id}
           />
         </div>
