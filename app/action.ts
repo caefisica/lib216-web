@@ -1,8 +1,8 @@
 'use server';
 
+import { auth } from '@/app/utils/auth';
+import prisma from '@/app/utils/db';
 import { revalidatePath } from 'next/cache';
-import { auth } from './utils/auth';
-import prisma from './utils/db';
 
 export async function addTowatchlist(formData: FormData) {
   'use server';
