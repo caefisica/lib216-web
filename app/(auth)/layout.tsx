@@ -1,6 +1,7 @@
+import BackgroundImage from '@/public/hero.jpg';
+import Logo from '@/public/title.png';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import BackgroundImage from '../../public/hero.jpg';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,9 +14,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         fill
       />
 
-      <h1 className="absolute left-4 top-4 md:left-10 md:top-6 text-3xl font-semibold text-white">
-        Biblioteca 216
-      </h1>
+      <Image
+        src={Logo}
+        alt="Logo"
+        width={120}
+        height={120}
+        priority
+        className="absolute left-4 top-4 object-contain md:left-10 md:top-6"
+      />
       {children}
     </div>
   );
