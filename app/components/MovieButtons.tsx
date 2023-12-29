@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { InfoIcon, PlayCircle } from 'lucide-react';
+import { InfoIcon, Library } from 'lucide-react';
 import { useState } from 'react';
 import PlayVideoModal from './PlayVideoModal';
 
@@ -24,7 +24,7 @@ export default function MovieButtons({
   return (
     <>
       <Button onClick={() => setOpen(true)} className="text-lg font-medium">
-        <PlayCircle className="mr-2 h-6 w-6" /> Leer
+        <Library className="mr-2 h-6 w-6" /> Leer
       </Button>
       <Button
         onClick={() => setOpen(true)}
