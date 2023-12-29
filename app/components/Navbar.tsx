@@ -10,10 +10,9 @@ import UserNav from './UserNav';
 
 const links: linkProps[] = [
   { name: 'Inicio', href: '/home' },
-  { name: 'Tv Shows', href: '/home/shows' },
-  { name: 'Movies', href: '/home/movies' },
-  { name: 'Nuevos libros', href: '/home/recently' },
-  { name: 'Mi lista', href: '/home/user/list' },
+  { name: 'Electromagnetismo', href: '/home/Electromagnetismo' },
+  { name: 'Mecánica Cuántica', href: '/home/Mecánica Cuántica' },
+  { name: 'Mi Lista', href: '/home/user/list' },
 ];
 
 export default function Navbar({ user }: NavbarProps) {
