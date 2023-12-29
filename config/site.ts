@@ -7,7 +7,7 @@ export const siteConfig = {
     'Somos estudiantes de física (UNMSM) y nos hemos propuesto hacer tu viaje por la física más accesible',
   links: {
     facebook: 'https://www.facebook.com/caefisica',
-    instagram: 'https://www.facebook.com/caefisica',
+    instagram: 'https://www.instagram.com/caefisica',
   },
 };
 
