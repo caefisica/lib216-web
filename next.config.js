@@ -10,6 +10,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'uipxmbnthbibbjfgfvep.supabase.co',
+        port: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'image.tmdb.org',
         port: '',
       },

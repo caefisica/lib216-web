@@ -10,25 +10,25 @@ import PlayVideoModal from './PlayVideoModal';
 interface iAppProps {
   title: string;
   overview: string;
-  movieId: number;
+  bookId: number;
   watchList: boolean;
-  wachtListId: string;
+  watchListId: string;
   youtubeUrl: string;
-  year: number;
-  age: number;
-  time: number;
+  publicationYear: number;
+  author: string;
+  category: string;
 }
 
 export function MovieCard({
-  movieId,
+  bookId,
   overview,
   title,
-  wachtListId,
+  watchListId,
   watchList,
   youtubeUrl,
-  age,
-  time,
-  year,
+  publicationYear,
+  author,
+  category,
 }: iAppProps) {
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
@@ -41,7 +41,7 @@ export function MovieCard({
       <div className="right-5 top-5 absolute z-10">
         {watchList ? (
           <form action={deleteFromWatchlist}>
-            <input type="hidden" name="watchlistId" value={wachtListId} />
+            <input type="hidden" name="watchListId" value={watchListId} />
             <input type="hidden" name="pathname" value={pathName} />
             <Button variant="outline" size="icon">
               <Heart className="w-4 h-4 text-red-500" />
@@ -49,7 +49,7 @@ export function MovieCard({
           </form>
         ) : (
           <form action={addTowatchlist}>
-            <input type="hidden" name="movieId" value={movieId} />
+            <input type="hidden" name="bookId" value={bookId} />
             <input type="hidden" name="pathname" value={pathName} />
             <Button variant="outline" size="icon">
               <Heart className="w-4 h-4" />
@@ -61,11 +61,11 @@ export function MovieCard({
       <div className="p-5 absolute bottom-0 left-0">
         <h1 className="font-bold text-lg line-clamp-1">{title}</h1>
         <div className="flex gap-x-2 items-center">
-          <p className="font-normal text-sm">{year}</p>
+          <p className="font-normal text-sm">{author}</p>
+          <p className="font-normal text-sm">{publicationYear}</p>
           <p className="font-normal border py-0.5 px-1 border-gray-200 rounded text-sm">
-            {age}+
+            {category}
           </p>
-          <p className="font-normal text-sm">{time}h</p>
         </div>
         <p className="line-clamp-1 text-sm text-gray-200 font-light">
           {overview}
@@ -74,14 +74,12 @@ export function MovieCard({
 
       <PlayVideoModal
         youtubeUrl={youtubeUrl}
-        key={movieId}
+        key={bookId}
         title={title}
         overview={overview}
         state={open}
         changeState={setOpen}
-        age={age}
-        duration={time}
-        release={year}
+        publicationYear={publicationYear}
       />
     </>
   );

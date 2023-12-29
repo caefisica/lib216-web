@@ -3,23 +3,39 @@ import { auth } from '@/app/utils/auth';
 import prisma from '@/app/utils/db';
 import Image from 'next/image';
 
+async function getUserId(email: string) {
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+  return user ? user.id : null;
+}
+
 async function getData(userId: string) {
   const data = await prisma.watchList.findMany({
     where: {
       userId: userId,
     },
     select: {
-      Movie: {
+      book: {
         select: {
-          title: true,
-          age: true,
-          duration: true,
-          imageString: true,
-          overview: true,
-          release: true,
           id: true,
-          WatchLists: true,
-          youtubeString: true,
+          title: true,
+          language: true,
+          overview: true,
+          publicationYear: true,
+          imageStrings: true,
+          youtubeUrl: true,
+          author: {
+            select: {
+              name: true,
+            },
+          },
+          category: {
+            select: {
+              name: true,
+            },
+          },
+          watchLists: true,
         },
       },
     },
@@ -30,17 +46,19 @@ async function getData(userId: string) {
 
 export default async function Watchlist() {
   const session = await auth();
-  const data = await getData(session?.user?.email as string);
+  const userId = await getUserId(session?.user?.email as string);
+  const data = await getData(userId as string);
+
   return (
     <>
-      <h1 className="text-white text-4xl font-bold underline mt-10 px-5 sm:px-0">
-        Mis libros
+      <h1 className="text-white text-4xl font-bold mt-10 px-5 sm:px-0">
+        Mi Lista de Lectura
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
-        {data.map((movie) => (
-          <div key={movie.Movie?.id} className="relative h-60">
+        {data.map((watchListItem) => (
+          <div key={watchListItem.book?.id} className="relative h-60">
             <Image
-              src={movie.Movie?.imageString as string}
+              src={watchListItem.book?.imageStrings[0] as string}
               alt="Movie"
               width={500}
               height={400}
@@ -49,28 +67,32 @@ export default async function Watchlist() {
             <div className="h-60 relative z-10 w-full transform transition duration-500 hover:scale-125 opacity-0 hover:opacity-100">
               <div className="bg-gradient-to-b from-transparent via-black/50 to-black z-10 w-full h-full rounded-lg flex items-center justify-center">
                 <Image
-                  src={movie.Movie?.imageString as string}
-                  alt="Movie"
+                  src={watchListItem.book?.imageStrings[0] as string}
+                  alt="Book"
                   width={800}
                   height={800}
                   className="absolute w-full h-full -z-10 rounded-lg object-cover"
                 />
 
                 <MovieCard
-                  key={movie.Movie?.id}
-                  age={movie.Movie?.age as number}
-                  movieId={movie.Movie?.id as number}
-                  overview={movie.Movie?.overview as string}
-                  time={movie.Movie?.duration as number}
-                  title={movie.Movie?.title as string}
-                  wachtListId={movie.Movie?.WatchLists[0]?.id as string}
+                  bookId={watchListItem.book?.id as number}
+                  overview={
+                    watchListItem.book?.overview ?? 'No overview available'
+                  }
+                  title={watchListItem.book?.title as string}
+                  watchListId={watchListItem.book?.watchLists[0]?.id ?? ''}
                   watchList={
-                    (movie.Movie?.WatchLists.length as number) > 0
+                    (watchListItem.book?.watchLists.length as number) > 0
                       ? true
                       : false
                   }
-                  year={movie.Movie?.release as number}
-                  youtubeUrl={movie.Movie?.youtubeString as string}
+                  youtubeUrl={watchListItem.book?.youtubeUrl ?? ''}
+                  publicationYear={watchListItem.book?.publicationYear ?? 0}
+                  author={watchListItem.book?.author.name ?? 'Unknown'}
+                  category={
+                    watchListItem.book?.category?.name ?? 'Uncategorized'
+                  }
+                  key={watchListItem.book?.id}
                 />
               </div>
             </div>

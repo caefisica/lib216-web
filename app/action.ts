@@ -1,21 +1,33 @@
 'use server';
 
+import { auth } from '@/app/utils/auth';
+import prisma from '@/app/utils/db';
 import { revalidatePath } from 'next/cache';
-import { auth } from './utils/auth';
-import prisma from './utils/db';
 
 export async function addTowatchlist(formData: FormData) {
   'use server';
 
-  const movieId = formData.get('movieId');
+  const bookId = formData.get('bookId');
   const pathname = formData.get('pathname') as string;
   const session = await auth();
+
+  if (!session || !session.user || !session.user.email) {
+    throw new Error('Session not found or invalid user in session.');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found.');
+  }
 
   // eslint-disable-next-line no-unused-vars
   const data = await prisma.watchList.create({
     data: {
-      userId: session?.user?.email as string,
-      movieId: Number(movieId),
+      userId: user.id,
+      bookId: Number(bookId),
     },
   });
 
@@ -25,7 +37,7 @@ export async function addTowatchlist(formData: FormData) {
 export async function deleteFromWatchlist(formData: FormData) {
   'use server';
 
-  const watchlistId = formData.get('watchlistId') as string;
+  const watchlistId = formData.get('watchListId') as string;
   const pathname = formData.get('pathname') as string;
 
   // eslint-disable-next-line no-unused-vars
