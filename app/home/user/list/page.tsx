@@ -51,8 +51,8 @@ export default async function Watchlist() {
 
   return (
     <>
-      <h1 className="text-white text-4xl font-bold underline mt-10 px-5 sm:px-0">
-        Mis libros
+      <h1 className="text-white text-4xl font-bold mt-10 px-5 sm:px-0">
+        Mi Lista de Lectura
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
         {data.map((watchListItem) => (
