@@ -1,7 +1,7 @@
 'use client';
 
 import { NavbarProps, linkProps } from '@/lib/types';
-import Logo from '@/public/images/cbo.jpeg';
+import Logo from '@/public/title.png';
 import { Bell, Search } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
