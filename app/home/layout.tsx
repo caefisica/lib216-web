@@ -1,4 +1,5 @@
 import Navbar from '@/app/components/Navbar';
+import { SiteFooter } from '@/app/components/SiteFooter';
 import { auth } from '@/app/utils/auth';
 import { User } from '@/lib/types';
 import { redirect } from 'next/navigation';
@@ -27,6 +28,7 @@ export default async function HomeLayout({
       <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
         {children}
       </main>
+      <SiteFooter />
     </>
   );
 }
