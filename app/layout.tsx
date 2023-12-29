@@ -9,7 +9,7 @@ const jost = Jost({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: `Biblioteca 216 — ${siteConfig.name}`,
     template: `%s - ${siteConfig.name}`,
   },
   metadataBase: new URL(siteConfig.url),
