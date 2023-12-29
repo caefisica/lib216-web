@@ -4,6 +4,13 @@ import { auth } from '@/app/utils/auth';
 import { User } from '@/lib/types';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Inicio',
+  description:
+    'Una ventana a la biblioteca de la Facultad de Ciencias Físicas de la UNMSM',
+};
 
 export default async function HomeLayout({
   children,
