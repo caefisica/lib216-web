@@ -65,7 +65,7 @@ export function MovieCard({
       <div className="p-5 absolute bottom-0 left-0">
         <h1 className="font-bold text-lg line-clamp-1 text-white">{title}</h1>
         <div className="flex gap-x-2 items-center">
-          <p className="font-normal text-sm text-white line-clamp-1">
+          <p className="font-normal text-sm line-clamp-1 text-white">
             {author}
           </p>
           <p className="font-normal text-sm text-white">{publicationYear}</p>
