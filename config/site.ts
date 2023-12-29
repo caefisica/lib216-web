@@ -4,7 +4,7 @@ export const siteConfig = {
   ogImage:
     'https://uipxmbnthbibbjfgfvep.supabase.co/storage/v1/object/public/user%20image/cae.png',
   description:
-    'Explora los libros disponibles en nuestra biblioteca en el salón 216 de la Facultad de Ciencias Físicas de la UNMSM.',
+    'Somos estudiantes de física (UNMSM) y nos hemos propuesto hacer tu viaje por la física más accesible',
   links: {
     facebook: 'https://www.facebook.com/caefisica',
     instagram: 'https://www.facebook.com/caefisica',
