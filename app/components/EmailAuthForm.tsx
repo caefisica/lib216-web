@@ -56,7 +56,7 @@ export default function EmailAuthForm({
         <Button
           type="submit"
           variant="destructive"
-          className="w-full bg-[#e50914]"
+          className="w-full bg-[#6d28d9]"
         >
           {buttonText}
         </Button>
