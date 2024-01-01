@@ -29,7 +29,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^1.41.1",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "lucide-react": "^0.302.0",
     "next": "^14.0.4",
     "next-auth": "5.0.0-beta.3",
