@@ -29,8 +29,8 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^1.41.1",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.302.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.350.0",
     "next": "^14.0.4",
     "next-auth": "5.0.0-beta.3",
     "react": "^18.2.0",
@@ -43,8 +43,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "20.10.5",
-    "@types/react": "18.2.45",
+    "@types/node": "20.11.25",
+    "@types/react": "18.2.64",
     "autoprefixer": "^10.4.0",
     "eslint": "8.56.0",
     "eslint-config-next": "^14.0.4",
