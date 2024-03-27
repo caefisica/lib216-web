@@ -18,6 +18,7 @@ export const {
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_CLIENT_ID,
       clientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true,
     }) as any,
     {
       id: 'resend',
