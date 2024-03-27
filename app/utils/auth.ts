@@ -1,9 +1,14 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth';
-import type { SendVerificationRequestParams } from 'next-auth/providers';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import prisma from './db';
+
+interface CustomSendVerificationRequestParams {
+  identifier: string;
+  url: string;
+  token: string;
+}
 
 export const {
   handlers: { GET, POST },
@@ -27,7 +32,7 @@ export const {
         identifier: email,
         url,
         token, // eslint-disable-line
-      }: SendVerificationRequestParams) {
+      }: CustomSendVerificationRequestParams) {
         const response = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
